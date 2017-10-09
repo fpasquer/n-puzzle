@@ -6,7 +6,7 @@
 /*   By: fpasquer <fpasquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/28 17:32:11 by fpasquer          #+#    #+#             */
-/*   Updated: 2017/09/09 12:02:33 by fpasquer         ###   ########.fr       */
+/*   Updated: 2017/09/19 22:36:34 by fpasquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ static int					is_error(char const *str)
 
 int							check_argv(char **path, int *flags)
 {
+	char					*name_file;
 	int						fd;
 	int						i;
 
@@ -32,12 +33,17 @@ int							check_argv(char **path, int *flags)
 			*flags = *flags ^ F_MANHATTAN;
 		else if (ft_strcmp(path[i] ,"-mal_place") == 0)
 			*flags = *flags ^ F_MAL_PLACE;
+		else if (ft_strcmp(path[i] ,"-linear_c") == 0)
+			*flags = *flags ^ F_LINEAR_C;
 		else
 			break ;
 	}
-	if ((fd = ft_fopen(path[i], "r")) <= 0)
+	if (path[i] == NULL && generate_grid() == false)
+		return (is_error("Error grid"));
+	name_file = (path[i] == NULL) ? DEFAULT_FILE : path[i];
+	if ((fd = ft_fopen(name_file, "r")) <= 0)
 		return (is_error("Path missing"));
-	if (ft_is_dir(path[i]) == true)
+	if (ft_is_dir(name_file) == true)
 	{
 		close(fd);
 		return (is_error("Path is a directory"));

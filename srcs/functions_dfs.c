@@ -6,7 +6,7 @@
 /*   By: fpasquer <fpasquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/29 10:51:25 by fpasquer          #+#    #+#             */
-/*   Updated: 2017/09/10 09:26:46 by fpasquer         ###   ########.fr       */
+/*   Updated: 2017/09/20 11:31:23 by fpasquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,13 @@ int							get_move_possible(t_grid *grid, int const y_zero,
 	move = FLAG_NONE;
 	if (y_zero > 0 && !(y_zero - 1 == grid->prev.y && x_zero == grid->prev.x))
 		move = (move | FLAG_TOP);
-	if (y_zero + 1 < grid->x_y && !(y_zero + 1 == grid->prev.y && x_zero == grid->prev.x))
+	if (y_zero + 1 < grid->x_y && !(y_zero + 1 == grid->prev.y && x_zero ==
+			grid->prev.x))
 		move = (move | FLAG_BOTTOM);
 	if (x_zero > 0 && !(y_zero == grid->prev.y && x_zero - 1 == grid->prev.x))
 		move = (move | FLAG_LEFT);
-	if (x_zero + 1 < grid->x_y && !(y_zero == grid->prev.y && x_zero + 1 == grid->prev.x))
+	if (x_zero + 1 < grid->x_y && !(y_zero == grid->prev.y && x_zero + 1 ==
+			grid->prev.x))
 		move = (move | FLAG_RIGHT);
 	return (move);
 }
@@ -74,11 +76,14 @@ int							is_Done(t_grid *grid)
 		return (-1);
 	for (y = 0, ret = 0; y < grid->x_y; y++)
 		for (x = 0; x < grid->x_y; x++)
-			if (grid->x_y == 3 && g_grid_3x3[y][x] == grid->grid[y][x])
-				ret++;
-			else if (grid->x_y == 4 && g_grid_4x4[y][x] == grid->grid[y][x])
-				ret++;
-			else if (grid->x_y == 5 && g_grid_5x5[y][x] == grid->grid[y][x])
-				ret++;
+			if (grid->grid[y][x] != EMPTY)
+			{
+				if (grid->x_y == 3 && g_grid_3x3[y][x] == grid->grid[y][x])
+					ret++;
+				else if (grid->x_y == 4 && g_grid_4x4[y][x] == grid->grid[y][x])
+					ret++;
+				else if (grid->x_y == 5 && g_grid_5x5[y][x] == grid->grid[y][x])
+					ret++;
+			}
 	return (ret);
 }

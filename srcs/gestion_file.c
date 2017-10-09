@@ -6,12 +6,11 @@
 /*   By: fpasquer <fpasquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/28 18:10:29 by fpasquer          #+#    #+#             */
-/*   Updated: 2017/09/03 15:03:47 by fpasquer         ###   ########.fr       */
+/*   Updated: 2017/09/20 11:27:53 by fpasquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/npuzzle.h"
-# define SIZE_file_MIN 3
 
 char						**save_file(int const fd)
 {
@@ -35,7 +34,7 @@ int							check_file(char **file)
 
 	if (file == NULL || *file == NULL)
 		return (false);
-	for (num = 0, y = 0; file[y] != NULL && file[y][0] == '#'; y++);// pour passer les commentaires
+	for (num = 0, y = 0; file[y] != NULL && file[y][0] == '#'; y++);
 	if (file[y] == NULL || (ret = num = ft_atoi(file[y])) < SIZE_file_MIN)
 		return (false);
 	for (int max_f_num = num * num - 1; file[++y] != NULL;)

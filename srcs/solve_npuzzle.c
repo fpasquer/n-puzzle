@@ -6,7 +6,7 @@
 /*   By: fpasquer <fpasquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/29 11:01:24 by fpasquer          #+#    #+#             */
-/*   Updated: 2017/09/14 13:38:02 by fpasquer         ###   ########.fr       */
+/*   Updated: 2017/09/20 11:25:23 by fpasquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,10 @@ static t_func_move			g_moves[] =
 };
 
 void						solve_npuzzle(t_grid *grid, int loop,
-	int const y_zero, int const x_zero, int const move, int right_coord)
+		int const y_zero, int const x_zero, int const move, int right_coord,
+		int weight)
 {
+	static long long int	iteration = 0;
 	unsigned int			i;
 	t_way_weight			ways[MAX_WAY];
 
@@ -31,26 +33,18 @@ void						solve_npuzzle(t_grid *grid, int loop,
 		return ;
 	if (right_coord == grid->end)
 	{
-#ifdef DEBUG
-		ft_putstr("right_coord = ");
-		ft_putnbr(right_coord);
-		ft_putchar('\n');
-#endif
 		grid->found = true;
 		grid->max_deep = loop - 1;
-		for (int k = 0; k < loop; k++)
-			g_way_good[k] = g_way_move[k];
-		printf("number of move = %d\n", loop);
+		printf("number of move = %d\niteration = %lld\n", loop, iteration);
 		return ;
 	}
-#ifdef DEBUG
-	print_grid(grid, loop, move);
-#endif
-	if (get_order_ways(grid, ways, move, y_zero, x_zero) != true)
+	iteration++;
+	if (get_order_ways(grid, ways, move, y_zero, x_zero, weight) != true)
 		return ;
 	for (i = 0; g_moves[i].key != FLAG_NONE && grid->found != true; i++)
 		if (ways[i].weight >= 0)
 			if (g_moves[ways[i].index].f(grid, loop, y_zero, x_zero, move,
-					right_coord) < 0)
+					right_coord, ways[i].weight) < 0)
 				return ;
+	iteration = (loop == 0) ? 0 : iteration;
 }

@@ -6,7 +6,7 @@
 /*   By: fpasquer <fpasquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/28 17:27:29 by fpasquer          #+#    #+#             */
-/*   Updated: 2017/09/14 17:40:01 by fpasquer         ###   ########.fr       */
+/*   Updated: 2017/09/20 10:57:32 by fpasquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,24 @@
 #include "../minilibx_macos/mlx.h"
 #include <time.h>
 
-
-
 # define NB_PIX_EACH_BOX 100
 
 # define STEEP_DEEP 5
 
+# define DEFAULT_SIZE 3u
+# define DEFAULT_FILE "grid"
+
 //# define DEBUG
 
 #ifdef DEBUG
-	# define MAX_DEEP 6
+	# define MAX_DEEP 5
 #else
-	# define MAX_DEEP 100
+	# define MAX_DEEP 50
 #endif
 # define MAX_WAY 4
+
+# define SIZE_file_MIN 3
+# define SIZE_file_MAX 5
 
 # define EMPTY 0
 
@@ -41,6 +45,7 @@
 # define MOVE_BOTTOM 1
 # define MOVE_LEFT 2
 # define MOVE_RIGHT 3
+# define NO_MOVE 4
 
 # define FLAG_NONE 0x0
 # define FLAG_TOP 0x1
@@ -50,8 +55,9 @@
 
 # define F_MANHATTAN 0x1
 # define F_MAL_PLACE 0x2
+# define F_LINEAR_C 0x4
 
-int							g_way_move[MAX_DEEP];
+//int							g_way_move[MAX_DEEP];
 int							g_way_good[MAX_DEEP];
 int							g_grid_3x3[3][3];
 int							g_grid_4x4[4][4];
@@ -99,13 +105,14 @@ typedef struct				s_mlx_npuzzle
 typedef struct				s_func_move
 {
 	int						key;
-	int						(*f)(t_grid *, int, int const, int const, int const, int);
+	int						(*f)(t_grid *, int, int const, int const, int const,
+			int, int);
 }							t_func_move;
 
 typedef struct				s_func_weight
 {
 	int						key;
-	int						(*f)(t_grid *, int const, int const);
+	int						(*f)(t_grid *, int const, int const, int);
 }							t_func_weight;
 
 typedef struct				s_func_move_show
@@ -124,20 +131,24 @@ bool						print_grid(t_grid *grid, int const deep,
 		unsigned int move);
 bool						del_grid(t_grid **grid);
 void						solve_npuzzle(t_grid *grid, int loop,
-		int const x_zero, int const y_zero, int const move, int right_coord);
+		int const x_zero, int const y_zero, int const move, int right_coord,
+		int weight);
 bool						get_coord_zero(t_grid *grid, t_coord *coord);
 int							get_move_possible(t_grid *grid, int const y_zero,
 		int const x_zero);
 int							is_Done(t_grid *grid);
 
 int							move_top(t_grid *grid, int loop,
-		int const y_zero, int const x_zero, int const move, int right_coord);
+		int const y_zero, int const x_zero, int const move, int right_coord,
+		int weight);
 int							move_bottom(t_grid *grid, int loop,
-		int const y_zero, int const x_zero, int const move, int right_coord);
+		int const y_zero, int const x_zero, int const move, int right_coord,
+		int weight);
 int							move_left(t_grid *left, int loop, int const y_zero,
-		int const x_zero, int const move, int right_coord);
+		int const x_zero, int const move, int right_coord, int weight);
 int							move_right(t_grid *right, int loop,
-		int const y_zero, int const x_zero, int const move, int right_coord);
+		int const y_zero, int const x_zero, int const move, int right_coord,
+		int weight);
 
 int							show_move_top(t_mlx_npuzzle **mlx);
 int							show_move_bottom(t_mlx_npuzzle **mlx);
@@ -154,17 +165,20 @@ void						leave_window(t_mlx_npuzzle **mlx);
 
 int							get_order_ways(t_grid *grid,
 		t_way_weight ways[MAX_DEEP], int const move, int const y_zero,
-		int const x_zero);
+		int const x_zero, int weight);
 int							get_weight_top(t_grid *grid, int const y_zero,
-		int const x_zero);
+		int const x_zero, int weight);
 int							get_weight_bottom(t_grid *grid, int const y_zero,
-		int const x_zero);
+		int const x_zero, int weight);
 int							get_weight_left(t_grid *grid, int const y_zero,
-		int const x_zero);
+		int const x_zero, int weight);
 int							get_weight_right(t_grid *grid, int const y_zero,
-		int const x_zero);
+		int const x_zero, int weight);
 int							get_weight_init(t_grid *grid);
 
 bool						solvable(t_grid *grid);
+int							get_coord_value(int value, int const x_y, int *y,
+		int *x);
+bool						generate_grid(void);
 
 #endif

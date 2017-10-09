@@ -6,26 +6,11 @@
 /*   By: fpasquer <fpasquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/31 10:09:15 by fpasquer          #+#    #+#             */
-/*   Updated: 2017/09/03 22:28:15 by fpasquer         ###   ########.fr       */
+/*   Updated: 2017/09/20 11:25:17 by fpasquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../incs/npuzzle.h"
-
-/*void						show_way(t_grid *grid)
-{
-	static char	const		rep[4][7] = {"TOP", "BOTTOM", "LEFT", "RIGHT"};
-	int						i;
-
-	if (grid != NULL)
-	{
-		if (grid->found == true)
-			for(i = 0; i < grid->max_deep; i++)
-				printf("vay[%3d] = %7s\n", i, rep[g_way_good[i]]);
-		else
-			printf("Pas trouve\n");
-	}
-}*/
 
 static t_mlx_npuzzle		*init_mlx(t_grid *grid)
 {
@@ -64,9 +49,6 @@ void						show_way(t_grid *grid, char ***file, int fd,
 		return ;
 	if (grid->found == true)
 	{
-		// static char	const		rep[4][7] = {"TOP", "BOTTOM", "LEFT", "RIGHT"};
-		// for (int i = 0; i < grid->max_deep; i++)
-		// 	printf("way[%2d] = %s\n", i, rep[g_way_good[i]]);
 		if ((mlx = init_mlx(grid)) == NULL)
 			return ;
 		mlx->grid = grid;
@@ -79,8 +61,6 @@ void						show_way(t_grid *grid, char ***file, int fd,
 		mlx_key_hook(mlx->win, key_hook, &mlx);
 		mlx_hook(mlx->win, 17, 0, close_hook, &mlx);
 		mlx_loop(mlx->mlx);
-
-
 	}
 	else
 		printf("Pas trouve\n");

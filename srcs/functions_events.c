@@ -6,16 +6,16 @@
 /*   By: fpasquer <fpasquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/31 10:39:16 by fpasquer          #+#    #+#             */
-/*   Updated: 2017/09/20 10:59:01 by fpasquer         ###   ########.fr       */
+/*   Updated: 2017/10/10 15:12:03 by fpasquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/npuzzle.h"
 
-# define TIME_SLEEP 50000
-# define EXIT 53
+#define TIME_SLEEP 50000
+#define EXIT 53
 
-static t_func_move_show		g_move_show[] = 
+static t_func_move_show		g_move_show[] =
 {
 	{MOVE_TOP, show_move_top},
 	{MOVE_BOTTOM, show_move_bottom},
@@ -26,6 +26,7 @@ static t_func_move_show		g_move_show[] =
 int							key_hook(int key, void *param)
 {
 	t_mlx_npuzzle			**f;
+
 	if ((f = (t_mlx_npuzzle **)param) == NULL)
 		return (-1);
 	if (key == EXIT)

@@ -6,7 +6,7 @@
 /*   By: fpasquer <fpasquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/28 17:32:11 by fpasquer          #+#    #+#             */
-/*   Updated: 2017/09/19 22:36:34 by fpasquer         ###   ########.fr       */
+/*   Updated: 2017/10/10 14:17:34 by fpasquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,28 +19,14 @@ static int					is_error(char const *str)
 	return (-1);
 }
 
-int							check_argv(char **path, int *flags)
+static int					check_argv_next(char *path)
 {
-	char					*name_file;
 	int						fd;
-	int						i;
+	char					*name_file;
 
-	if (path == NULL || flags == NULL)
-		return (is_error("Path empty"));
-	for (fd = -1, i = 1, *flags = FLAG_NONE; path[i] != NULL; i++)
-	{
-		if (ft_strcmp(path[i], "-manhattan") == 0)
-			*flags = *flags ^ F_MANHATTAN;
-		else if (ft_strcmp(path[i] ,"-mal_place") == 0)
-			*flags = *flags ^ F_MAL_PLACE;
-		else if (ft_strcmp(path[i] ,"-linear_c") == 0)
-			*flags = *flags ^ F_LINEAR_C;
-		else
-			break ;
-	}
-	if (path[i] == NULL && generate_grid() == false)
+	if (path == NULL && generate_grid() == false)
 		return (is_error("Error grid"));
-	name_file = (path[i] == NULL) ? DEFAULT_FILE : path[i];
+	name_file = (path == NULL) ? DEFAULT_FILE : path;
 	if ((fd = ft_fopen(name_file, "r")) <= 0)
 		return (is_error("Path missing"));
 	if (ft_is_dir(name_file) == true)
@@ -49,4 +35,26 @@ int							check_argv(char **path, int *flags)
 		return (is_error("Path is a directory"));
 	}
 	return (fd);
+}
+
+int							check_argv(char **path, int *flags)
+{
+	int						i;
+
+	if (path == NULL || flags == NULL)
+		return (is_error("Path empty"));
+	*flags = FLAG_NONE;
+	i = 0;
+	while (path[++i] != NULL)
+	{
+		if (ft_strcmp(path[i], "-manhattan") == 0)
+			*flags = *flags ^ F_MANHATTAN;
+		else if (ft_strcmp(path[i], "-mal_place") == 0)
+			*flags = *flags ^ F_MAL_PLACE;
+		else if (ft_strcmp(path[i], "-linear_c") == 0)
+			*flags = *flags ^ F_LINEAR_C;
+		else
+			break ;
+	}
+	return (check_argv_next(path[i]));
 }

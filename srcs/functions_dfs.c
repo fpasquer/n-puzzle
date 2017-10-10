@@ -6,7 +6,7 @@
 /*   By: fpasquer <fpasquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/29 10:51:25 by fpasquer          #+#    #+#             */
-/*   Updated: 2017/09/20 11:31:23 by fpasquer         ###   ########.fr       */
+/*   Updated: 2017/10/10 14:50:01 by fpasquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,18 @@ bool						get_coord_zero(t_grid *grid, t_coord *coord)
 {
 	if (grid->grid == NULL || coord == NULL)
 		return (false);
-	for (coord->y = 0; coord->y < grid->x_y; coord->y++)
-		for (coord->x = 0; coord->x < grid->x_y; coord->x++)
+	coord->y = 0;
+	while (coord->y < grid->x_y)
+	{
+		coord->x = 0;
+		while (coord->x < grid->x_y)
+		{
 			if (grid->grid[coord->y][coord->x] == EMPTY)
 				return (true);
+			coord->x++;
+		}
+		coord->y++;
+	}
 	return (false);
 }
 
@@ -66,15 +74,8 @@ int							get_move_possible(t_grid *grid, int const y_zero,
 	return (move);
 }
 
-int							is_Done(t_grid *grid)
-{
-	int						y;
-	int						x;
-	int						ret;
-
-	if (grid == NULL || grid->grid == NULL)
-		return (-1);
-	for (y = 0, ret = 0; y < grid->x_y; y++)
+/*
+for (y = 0, ret = 0; y < grid->x_y; y++)
 		for (x = 0; x < grid->x_y; x++)
 			if (grid->grid[y][x] != EMPTY)
 			{
@@ -85,5 +86,33 @@ int							is_Done(t_grid *grid)
 				else if (grid->x_y == 5 && g_grid_5x5[y][x] == grid->grid[y][x])
 					ret++;
 			}
+*/
+
+int							is_done(t_grid *grid)
+{
+	int						y;
+	int						x;
+	int						ret;
+
+	if (grid == NULL || grid->grid == NULL || (y = 0) != 0)
+		return (-1);
+	ret = 0;
+	while (y < grid->x_y && (x = 0) == 0)
+	{
+		while (x < grid->x_y)
+		{
+			if (grid->grid[y][x] != EMPTY)
+			{
+				if (grid->x_y == 3 && g_grid_3x3[y][x] == grid->grid[y][x])
+					ret++;
+				else if (grid->x_y == 4 && g_grid_4x4[y][x] == grid->grid[y][x])
+					ret++;
+				else if (grid->x_y == 5 && g_grid_5x5[y][x] == grid->grid[y][x])
+					ret++;
+			}
+			x++;
+		}
+		y++;
+	}
 	return (ret);
 }

@@ -6,7 +6,7 @@
 /*   By: fpasquer <fpasquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/28 17:26:06 by fpasquer          #+#    #+#             */
-/*   Updated: 2017/10/10 13:59:00 by fpasquer         ###   ########.fr       */
+/*   Updated: 2017/10/10 14:32:22 by fpasquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void						start_loop(t_grid *grid, t_coord coord_zero,
 	if (grid == NULL || grid->grid == NULL || file == NULL || fd <= 1)
 		return ;
 	get_coord_value(0, grid->x_y, &right_coord, &weight);
-	right_coord = is_Done(grid);
+	right_coord = is_done(grid);
 	weight = grid->max_deep;
 	printf("weight manhattan + linear_conflict = %d\n", weight);
 	start = clock();

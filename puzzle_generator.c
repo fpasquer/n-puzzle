@@ -6,7 +6,7 @@
 /*   By: amaindro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/10 11:43:57 by amaindro          #+#    #+#             */
-/*   Updated: 2017/10/10 16:45:09 by amaindro         ###   ########.fr       */
+/*   Updated: 2017/10/10 16:55:46 by amaindro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ int		main(int ac, char **av)
 		{
 			x = 0;
 			while (x < size)
-				printf("%d ", puzzle[y * size + x++]);
+				printf("%*d ", (int)ft_nblen(size * size), puzzle[y * size + x++]);
 			printf("\n");
 			y++;
 		}

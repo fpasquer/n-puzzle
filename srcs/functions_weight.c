@@ -6,7 +6,7 @@
 /*   By: fpasquer <fpasquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/02 18:13:02 by fpasquer          #+#    #+#             */
-/*   Updated: 2017/10/10 15:28:27 by fpasquer         ###   ########.fr       */
+/*   Updated: 2017/10/10 19:38:43 by fpasquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,15 @@ static bool					linear_conflict(t_grid *grid, int const y,
 
 	if (grid == NULL || grid->grid == NULL || weight == NULL)
 		return (false);
-	for (x_curs = x + 1; x_curs < grid->x_y; x_curs++)
+	x_curs = x + 1;
+	while (x_curs < grid->x_y)
 	{
 		if (get_coord_value(grid->grid[y][x_curs], grid->x_y, &y_dest, &x_dest)
 				<= 0)
 			return (false);
 		if (y_dest == y && x_dest <= x)
 			(*weight) += 2;
+		x_curs++;
 	}
 	return (true);
 }
@@ -64,13 +66,12 @@ static int			general_weight(t_grid *grid, int const flag,
 	int						ret1;
 	int						ret2;
 
-	if (grid->flag == 0)
+	if ((ret = 0) == 0 && grid->flag == 0)
 		return (flag);
 	if (get_coord_value(grid->grid[y_new][x_new], grid->x_y, &y, &x) <= 0)
 		return (INT_MIN);
 	ret1 = (y > y_zero) ? y - y_zero : y_zero - y;
 	ret2 = (x > x_zero) ? x - x_zero : x_zero - x;
-	ret = 0;
 	if ((grid->flag & F_MANHATTAN) != 0)
 	{
 		ret += weight;
@@ -129,14 +130,20 @@ int					get_weight_init(t_grid *grid)
 
 	if (grid == NULL || grid->grid == NULL)
 		return (INT_MIN);
-	for (y = 0, ret = 0; y < grid->x_y; y++)
-		for(x = 0; x < grid->x_y; x++)
-			if (grid->grid[y][x] != EMPTY)
+	y = 0;
+	ret = 0;
+	while (y < grid->x_y)
+	{
+		x = 0;
+		while (x < grid->x_y)
+			if (grid->grid[y][x++] != EMPTY)
 			{
-				if ((tmp = get_weight_init_value(grid, y, x)) == INT_MIN)
+				if ((tmp = get_weight_init_value(grid, y, x - 1)) == INT_MIN)
 					return (INT_MIN);
 				ret += tmp;
 			}
+		y++;
+	}
 	return (ret);
 }
 

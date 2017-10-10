@@ -6,15 +6,38 @@
 /*   By: fpasquer <fpasquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/31 10:09:15 by fpasquer          #+#    #+#             */
-/*   Updated: 2017/09/20 11:25:17 by fpasquer         ###   ########.fr       */
+/*   Updated: 2017/10/10 19:13:07 by fpasquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../incs/npuzzle.h"
 
+static t_mlx_npuzzle		*init_mlx_next(t_mlx_npuzzle *mlx, t_grid *grid)
+{
+	int						i;
+	int						end;
+
+	if (mlx == NULL || grid == NULL)
+		return (NULL);
+	if ((mlx->data = ft_memalloc(sizeof(*mlx->data) * grid->x_y * grid->x_y))
+			== NULL)
+		return (NULL);
+	i = 0;
+	end = grid->x_y * grid->x_y;
+	while (i < end)
+	{
+		if ((mlx->data[i] = (int*)mlx_get_data_addr(mlx->img[i], &mlx->t[0],
+				&mlx->t[1], &mlx->t[2])) == NULL)
+			break;
+		i++;
+	}
+	return (mlx);
+}
+
 static t_mlx_npuzzle		*init_mlx(t_grid *grid)
 {
 	int						i;
+	int						end;
 	t_mlx_npuzzle			*mlx;
 
 	if (grid == NULL || (mlx = ft_memalloc(sizeof(*mlx))) == NULL)
@@ -24,19 +47,16 @@ static t_mlx_npuzzle		*init_mlx(t_grid *grid)
 	if ((mlx->win = mlx_new_window(mlx->mlx, NB_PIX_EACH_BOX * grid->x_y,
 			NB_PIX_EACH_BOX * grid->x_y, "N-puzzle")) == NULL)
 		return (NULL);
-	if ((mlx->img = ft_memalloc(sizeof(*mlx->img) * grid->x_y * grid->x_y)) == NULL)
+	if ((mlx->img = ft_memalloc(sizeof(*mlx->img) * grid->x_y * grid->x_y)) ==
+			NULL)
 		return (NULL);
-	for (i = 0; i < grid->x_y * grid->x_y; i++)
-		if ((mlx->img[i] = mlx_new_image(mlx->mlx, NB_PIX_EACH_BOX ,
+	end = grid->x_y * grid->x_y;
+	i = 0;
+	while (i < end)
+		if ((mlx->img[i++] = mlx_new_image(mlx->mlx, NB_PIX_EACH_BOX,
 				NB_PIX_EACH_BOX)) == NULL)
 			break ;
-	if ((mlx->data = ft_memalloc(sizeof(*mlx->data) * grid->x_y * grid->x_y)) == NULL)
-		return (NULL);
-	for (i = 0; i < grid->x_y * grid->x_y; i++)
-		if ((mlx->data[i] = (int*)mlx_get_data_addr(mlx->img[i], &mlx->t[0],
-				&mlx->t[1], &mlx->t[2])) == NULL)
-			break;
-	return (mlx);
+	return (init_mlx_next(mlx, grid));
 }
 
 void						show_way(t_grid *grid, char ***file, int fd,
@@ -74,9 +94,10 @@ void						leave_window(t_mlx_npuzzle **mlx)
 		return ;
 	if ((*mlx)->img != NULL)
 	{
-		for (i = 0; i < (*mlx)->grid->x_y * (*mlx)->grid->x_y; i++)
-			if ((*mlx)->img[i] != NULL)
-				mlx_destroy_image((*mlx)->mlx, (*mlx)->img[i]);
+		i = 0;
+		while (i < (*mlx)->grid->x_y * (*mlx)->grid->x_y)
+			if ((*mlx)->img[i++] != NULL)
+				mlx_destroy_image((*mlx)->mlx, (*mlx)->img[i - 1]);
 		ft_memdel((void**)&(*mlx)->img);
 	}
 	if ((*mlx)->data != NULL)

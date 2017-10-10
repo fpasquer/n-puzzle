@@ -6,7 +6,7 @@
 /*   By: fpasquer <fpasquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/29 10:51:25 by fpasquer          #+#    #+#             */
-/*   Updated: 2017/10/10 14:50:01 by fpasquer         ###   ########.fr       */
+/*   Updated: 2017/10/10 19:32:53 by fpasquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,20 +73,6 @@ int							get_move_possible(t_grid *grid, int const y_zero,
 		move = (move | FLAG_RIGHT);
 	return (move);
 }
-
-/*
-for (y = 0, ret = 0; y < grid->x_y; y++)
-		for (x = 0; x < grid->x_y; x++)
-			if (grid->grid[y][x] != EMPTY)
-			{
-				if (grid->x_y == 3 && g_grid_3x3[y][x] == grid->grid[y][x])
-					ret++;
-				else if (grid->x_y == 4 && g_grid_4x4[y][x] == grid->grid[y][x])
-					ret++;
-				else if (grid->x_y == 5 && g_grid_5x5[y][x] == grid->grid[y][x])
-					ret++;
-			}
-*/
 
 int							is_done(t_grid *grid)
 {

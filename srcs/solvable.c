@@ -6,7 +6,7 @@
 /*   By: fpasquer <fpasquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/10 09:10:59 by fpasquer          #+#    #+#             */
-/*   Updated: 2017/09/11 12:27:19 by fpasquer         ###   ########.fr       */
+/*   Updated: 2017/10/10 19:23:42 by fpasquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,11 @@ static int					find_value_position(int const grid[], int const x_y,
 	int						i;
 	int						end;
 
-	for (i = 0, end = x_y * x_y; i < end; i++)
-		if (grid[i] == value)
-			return (i);
+	i = 0;
+	end = x_y * x_y;
+	while (i < end)
+		if (grid[i++] == value)
+			return (i - 1);
 	return (-1);
 }
 
@@ -32,9 +34,11 @@ static int					find_value_dest(int const x_y, int value)
 	end = x_y * x_y;
 	if (value == EMPTY)
 		return (end - 1);
-	for (i = 0, value--; i < end; i++)
-		if (i == value)
-			return (i);
+	i = 0;
+	value--;
+	while (i < end)
+		if (i++ == value)
+			return (i - 1);
 	return (-1);
 }
 
@@ -47,9 +51,10 @@ static bool					solvable_check(int grid[], int const x_y,
 	int						switch_val;
 	int						tmp;
 
-	for (i = 0, switch_val = 0; i < end; ++i)
+	i = 0;
+	switch_val = 0;
+	while (i < end)
 	{
-
 		if ((position = find_value_position(grid, x_y, i)) == -1)
 			return (false);
 		if ((dest = find_value_dest(x_y, i)) == -1)
@@ -61,6 +66,7 @@ static bool					solvable_check(int grid[], int const x_y,
 			grid[dest] = tmp;
 			switch_val++;
 		}
+		i++;
 	}
 	return (switch_val % 2);
 }
@@ -77,9 +83,15 @@ bool						solvable(t_grid *grid)
 		return (false);
 	if ((grid_tab = ft_memalloc(sizeof(int) * (grid->x_y * grid->x_y))) == NULL)
 		return (false);
-	for (y = 0, i = 0; y < grid->x_y; y++)
-		for (x = 0; x < grid->x_y; x++, i++)
-			grid_tab[i] = grid->grid[y][x];
+	i = 0;
+	y = 0;
+	while (y < grid->x_y)
+	{
+		x = 0;
+		while (x < grid->x_y)
+			grid_tab[i++] = grid->grid[y][x++];
+		y++;
+	}
 	ret = solvable_check(grid_tab, grid->x_y, grid->x_y * grid->x_y);
 	ft_memdel((void**)&grid_tab);
 	grid->found = ret == false ? true : grid->found;

@@ -6,7 +6,7 @@
 /*   By: amaindro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/10 11:43:57 by amaindro          #+#    #+#             */
-/*   Updated: 2017/10/11 15:46:15 by fpasquer         ###   ########.fr       */
+/*   Updated: 2017/10/11 16:52:37 by amaindro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,9 @@ int		*puzzle_generator(int s)
 	x[1] = 1;
 	y[0] = 0;
 	y[1] = 0;
-
 	while (1)
 	{
-		puzzle[x[0] + y[0] *s] = cur;
+		puzzle[x[0] + y[0] * s] = cur;
 		if (cur == 0)
 			break ;
 		cur++;
@@ -93,44 +92,77 @@ int		*puzzle_generator(int s)
 	return (puzzle);
 }
 
-int		main(int ac, char **av)
+int		*make_solvable_or_not(int size, int solvable, int *puzzle)
 {
-	int		size;
+	int		tmp;
+
+	if (solvable == 1)
+	{
+		printf("# This puzzle is unsolvable\n%d\n", size);
+		if (puzzle[0] == 0 || puzzle[1] == 0)
+		{
+			tmp = puzzle[size * size - 1];
+			puzzle[size * size - 1] = puzzle[size * size - 2];
+			puzzle[size * size - 2] = tmp;
+		}
+		else
+		{
+			tmp = puzzle[0];
+			puzzle[0] = puzzle[1];
+			puzzle[1] = tmp;
+		}
+	}
+	else
+		printf("# This puzzle is solvable\n%d\n", size);
+	return (puzzle);
+}
+
+void	print_grid(int size, int solvable)
+{
 	int		x;
 	int		y;
 	int		*puzzle;
 
-	if (ac == 2)
+	srand(getpid());
+	puzzle = puzzle_generator(size);
+	x = -1;
+	y = rand() % 10000 * size;
+	while (++x < y)
+		puzzle_swapper(size, puzzle);
+	make_solvable_or_not(size, solvable, puzzle);
+	y = 0;
+	while (y < size)
 	{
-		srand(getpid());
-		if (!ft_is_number(av[1]))
-			return (0);
-		if ((size = ft_atoi(av[1])) < 3)
-			return (0);
-		puzzle = puzzle_generator(size);
-		x = -1;
-		y = rand() % 10000 * size;
-		while (++x < y)
-			puzzle_swapper(size, puzzle);
-		y = 0;
-		while (y < size)
-		{
-			x = 0;
-			while (x < size)
-				printf("%*d ", (int)ft_nblen(size * size), puzzle[y * size + x++]);
-			printf("\n");
-			y++;
-		}
+		x = 0;
+		while (x < size)
+			printf("%*d ", (int)ft_nblen(size * size), puzzle[y * size + x++]);
+		printf("\n");
+		y++;
 	}
 }
 
-/*
-   1 2 3
-   8 0 4
-   7 6 5
+int		main(int ac, char **av)
+{
+	int		size;
+	int		i;
+	int		solvable;
 
-   1  2  3  4
-   12 13 14 5
-   11 0  15 6
-   10 9  8  7
-   */
+	srand(getpid());
+	if (ac == 2 || ac == 3)
+	{
+		i = 0;
+		size = 0;
+		solvable = rand() % 2;
+		while (++i < ac)
+		{
+			if (ft_is_number(av[i]))
+				size = ft_atoi(av[i]);
+			if (ft_strcmp(av[i], "-u") == 0)
+				solvable = 1;
+			if (ft_strcmp(av[i], "-s") == 0)
+				solvable = 2;
+		}
+		if (size >= 3)
+			print_grid(size, solvable);
+	}
+}

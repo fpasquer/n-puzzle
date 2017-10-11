@@ -6,7 +6,7 @@
 /*   By: fpasquer <fpasquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/28 18:10:29 by fpasquer          #+#    #+#             */
-/*   Updated: 2017/10/11 09:07:20 by fpasquer         ###   ########.fr       */
+/*   Updated: 2017/10/11 10:51:54 by fpasquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,39 +26,6 @@ char						**save_file(int const fd)
 	file = ft_strsplit(file_content, '\n');
 	munmap(file_content, size_file);
 	return (file);
-}
-
-int							check_file(char **file)
-{
-	int						y;
-	int						x;
-	int						num;
-	int						ret;
-	int						nb_number;
-
-	if (file == NULL || *file == NULL)
-		return (false);
-	for (num = 0, y = 0; file[y] != NULL && file[y][0] == '#'; y++);
-	if (file[y] == NULL || (ret = num = ft_atoi(file[y])) < SIZE_file_MIN)
-		return (false);
-	for (int max_f_num = num * num - 1; file[++y] != NULL;)
-	{
-		for (nb_number = 0, x = 0; file[y][x] != '\0'; nb_number++)
-		{
-			while (file[y][x] == ' ')
-				x++;
-			if (ft_isdigit(file[y][x]) != true ||
-					(num = ft_atoi(&file[y][x])) < 0 || num > max_f_num)
-				return (false);
-			while (ft_isdigit(file[y][x]) == true)
-				x++;
-			while (file[y][x] == ' ')
-				x++;
-		}
-		if (nb_number != ret)
-			return (false);
-	}
-	return (ret);
 }
 
 bool						print_file(char **file)

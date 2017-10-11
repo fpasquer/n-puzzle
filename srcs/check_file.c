@@ -6,13 +6,13 @@
 /*   By: fpasquer <fpasquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/11 10:50:30 by fpasquer          #+#    #+#             */
-/*   Updated: 2017/10/11 11:34:06 by fpasquer         ###   ########.fr       */
+/*   Updated: 2017/10/11 12:25:38 by fpasquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/npuzzle.h"
 
-static int					skip_comment(char **file, int *y)
+int							skip_comment(char **file, int *y)
 {
 	if (y == NULL || file == NULL || *file == NULL || (*y) < 0)
 		return (false);
@@ -74,7 +74,6 @@ static int					loop_check_file(char **file, int y, int num)
 		coord.y++;
 		skip_comment(file, &coord.y);
 	}
-	printf("%s %d\n", __FILE__, __LINE__);
 	return (ret);
 }
 

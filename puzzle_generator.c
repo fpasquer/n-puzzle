@@ -6,13 +6,14 @@
 /*   By: amaindro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/10 11:43:57 by amaindro          #+#    #+#             */
-/*   Updated: 2017/10/11 15:39:51 by amaindro         ###   ########.fr       */
+/*   Updated: 2017/10/11 15:46:15 by fpasquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft/libft.h"
 #include <time.h>
-
+#include <sys/types.h>
+#include <unistd.h>
 #include <stdio.h>
 
 int		*puzzle_swapper(int s, int *puzzle)
@@ -101,7 +102,7 @@ int		main(int ac, char **av)
 
 	if (ac == 2)
 	{
-		srand(time(NULL));
+		srand(getpid());
 		if (!ft_is_number(av[1]))
 			return (0);
 		if ((size = ft_atoi(av[1])) < 3)

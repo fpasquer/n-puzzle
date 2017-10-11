@@ -6,7 +6,7 @@
 /*   By: fpasquer <fpasquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/28 18:10:29 by fpasquer          #+#    #+#             */
-/*   Updated: 2017/09/20 11:27:53 by fpasquer         ###   ########.fr       */
+/*   Updated: 2017/10/11 09:07:20 by fpasquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,11 @@ char						**save_file(int const fd)
 
 int							check_file(char **file)
 {
-	int						y, x, num, ret, nb_number;
+	int						y;
+	int						x;
+	int						num;
+	int						ret;
+	int						nb_number;
 
 	if (file == NULL || *file == NULL)
 		return (false);

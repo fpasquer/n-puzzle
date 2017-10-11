@@ -6,33 +6,11 @@
 /*   By: fpasquer <fpasquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/02 18:13:02 by fpasquer          #+#    #+#             */
-/*   Updated: 2017/10/10 19:38:43 by fpasquer         ###   ########.fr       */
+/*   Updated: 2017/10/11 09:05:45 by fpasquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/npuzzle.h"
-
-static bool					linear_conflict(t_grid *grid, int const y,
-	int const x, int *weight)
-{
-	int						x_curs;
-	int						y_dest;
-	int						x_dest;
-
-	if (grid == NULL || grid->grid == NULL || weight == NULL)
-		return (false);
-	x_curs = x + 1;
-	while (x_curs < grid->x_y)
-	{
-		if (get_coord_value(grid->grid[y][x_curs], grid->x_y, &y_dest, &x_dest)
-				<= 0)
-			return (false);
-		if (y_dest == y && x_dest <= x)
-			(*weight) += 2;
-		x_curs++;
-	}
-	return (true);
-}
 
 static int					get_weight_init_value(t_grid *grid, int const
 		y_coord, int const x_coord)
@@ -56,35 +34,28 @@ static int					get_weight_init_value(t_grid *grid, int const
 	return(ret1 + ret2 + linear_c);
 }
 
-static int			general_weight(t_grid *grid, int const flag,
-		int const y_zero, int const x_zero, int const y_new, int const x_new,
-		int weight)
+static int					in_loop_get_coord_value(t_coord coord_dest[],
+		int const x_y, int **y, int **x)
 {
-	int						y;
-	int						x;
-	int						ret;
-	int						ret1;
-	int						ret2;
-
-	if ((ret = 0) == 0 && grid->flag == 0)
-		return (flag);
-	if (get_coord_value(grid->grid[y_new][x_new], grid->x_y, &y, &x) <= 0)
-		return (INT_MIN);
-	ret1 = (y > y_zero) ? y - y_zero : y_zero - y;
-	ret2 = (x > x_zero) ? x - x_zero : x_zero - x;
-	if ((grid->flag & F_MANHATTAN) != 0)
+	if (y == NULL || *y == NULL || x == NULL || *x == NULL)
+		return (false);
+	if (x_y == 3)
 	{
-		ret += weight;
-		ret += ret1 + ret2;
-		ret -= (y > y_new) ? y - y_new : y_new - y;
-		ret -= (x > x_new) ? x - x_new : x_new - x;
+		coord_dest[g_grid_3x3[**y][**x]].y = (**y);
+		coord_dest[g_grid_3x3[**y][**x]].y = (**x);
 	}
-	if ((grid->flag & F_MAL_PLACE) != 0)
-		ret += (ret1 + ret2 == 0) ? 1 : 0;
-	if ((grid->flag & F_LINEAR_C) != 0 && ret1 == 0 && x_zero < grid->x_y - 1)
-		if (linear_conflict(grid, y_zero, x_zero, &ret) != true)
-			return (INT_MIN);
-	return (ret);
+	else if (x_y == 4)
+	{
+		coord_dest[g_grid_3x3[**y][**x]].y = (**y);
+		coord_dest[g_grid_3x3[**y][**x]].y = (**x);
+	}
+	else if (x_y == 5)
+	{
+		coord_dest[g_grid_3x3[**y][**x]].y = (**y);
+		coord_dest[g_grid_3x3[**y][**x]].y = (**x);
+	}
+	(**x)++;
+	return (true);
 }
 
 int							get_coord_value(int const value, int const x_y,
@@ -97,23 +68,15 @@ int							get_coord_value(int const value, int const x_y,
 		return (-1);
 	if (loop == 0)
 	{
-		for((*y) = 0; (*y) < x_y; (*y)++)
-			for (*x = 0; *x < x_y; (*x)++)
-				if (x_y == 3)
-				{
-					coord_dest[g_grid_3x3[*y][*x]].y = (*y);
-					coord_dest[g_grid_3x3[*y][*x]].x = (*x);
-				}
-				else if (x_y == 4)
-				{
-					coord_dest[g_grid_4x4[*y][*x]].y = (*y);
-					coord_dest[g_grid_4x4[*y][*x]].x = (*x);
-				}
-				else if (x_y == 5)
-				{
-					coord_dest[g_grid_5x5[*y][*x]].y = (*y);
-					coord_dest[g_grid_5x5[*y][*x]].x = (*x);
-				}
+		(*y) = 0;
+		while ((*y) < x_y)
+		{
+			(*x) = 0;
+			while ((*x) < x_y)
+				if (in_loop_get_coord_value(coord_dest, x_y, &y, &x) == false)
+					return (-1);
+			(*y)++;
+		}
 		loop = 1;
 	}
 	(*y) = coord_dest[value].y;
@@ -147,38 +110,25 @@ int					get_weight_init(t_grid *grid)
 	return (ret);
 }
 
-int							get_weight_top(t_grid *grid, int const y_zero,
-		int const x_zero, int weight)
+bool						linear_conflict(t_grid *grid, int const y,
+	int const x, int *weight)
 {
-	if (grid == NULL || grid->grid == NULL || y_zero - 1 < 0)
-		return (INT_MIN);
-	return (general_weight(grid, FLAG_TOP, y_zero, x_zero, y_zero - 1, x_zero, 
-			weight));
+	int						x_curs;
+	int						y_dest;
+	int						x_dest;
+
+	if (grid == NULL || grid->grid == NULL || weight == NULL)
+		return (false);
+	x_curs = x + 1;
+	while (x_curs < grid->x_y)
+	{
+		if (get_coord_value(grid->grid[y][x_curs], grid->x_y, &y_dest, &x_dest)
+				<= 0)
+			return (false);
+		if (y_dest == y && x_dest <= x)
+			(*weight) += 2;
+		x_curs++;
+	}
+	return (true);
 }
 
-int							get_weight_bottom(t_grid *grid, int const y_zero,
-		int const x_zero, int weight)
-{
-	if (grid == NULL || grid->grid == NULL || y_zero + 1 >= grid->x_y)
-		return (INT_MIN);
-	return (general_weight(grid, FLAG_BOTTOM, y_zero, x_zero, y_zero + 1,
-			x_zero, weight));
-}
-
-int							get_weight_left(t_grid *grid, int const y_zero,
-		int const x_zero, int weight)
-{
-	if (grid == NULL || grid->grid == NULL || x_zero - 1 < 0)
-		return (INT_MIN);
-	return (general_weight(grid, FLAG_LEFT, y_zero, x_zero, y_zero, x_zero - 1,
-			weight));
-}
-
-int							get_weight_right(t_grid *grid, int const y_zero,
-		int const x_zero, int weight)
-{
-	if (grid == NULL || grid->grid == NULL || x_zero + 1 >= grid->x_y)
-		return (INT_MIN);
-	return (general_weight(grid, FLAG_RIGHT, y_zero, x_zero, y_zero, x_zero + 1,
-			weight));
-}

@@ -6,7 +6,7 @@
 /*   By: amaindro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/10 11:43:57 by amaindro          #+#    #+#             */
-/*   Updated: 2017/10/10 16:55:46 by amaindro         ###   ########.fr       */
+/*   Updated: 2017/10/11 15:39:51 by amaindro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,11 +101,16 @@ int		main(int ac, char **av)
 
 	if (ac == 2)
 	{
+		srand(time(NULL));
 		if (!ft_is_number(av[1]))
 			return (0);
 		if ((size = ft_atoi(av[1])) < 3)
 			return (0);
 		puzzle = puzzle_generator(size);
+		x = -1;
+		y = rand() % 10000 * size;
+		while (++x < y)
+			puzzle_swapper(size, puzzle);
 		y = 0;
 		while (y < size)
 		{
@@ -119,12 +124,12 @@ int		main(int ac, char **av)
 }
 
 /*
-1 2 3
-8 0 4
-7 6 5
+   1 2 3
+   8 0 4
+   7 6 5
 
-1  2  3  4
-12 13 14 5
-11 0  15 6
-10 9  8  7
-*/
+   1  2  3  4
+   12 13 14 5
+   11 0  15 6
+   10 9  8  7
+   */

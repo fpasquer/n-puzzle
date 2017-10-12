@@ -6,7 +6,7 @@
 #    By: fpasquer <fpasquer@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/08/22 11:05:13 by florian           #+#    #+#              #
-#    Updated: 2017/10/11 10:52:15 by fpasquer         ###   ########.fr        #
+#    Updated: 2017/10/12 09:53:26 by fpasquer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ LIBRARY			= libft/libft.a
 
 OTHERS			= libft Makefile auteur
 ARCH			= 64
-OTHER_FLAGS 	= -I /usr/X11/include -L /usr/X11/lib -l mlx -framework OpenGL -framework AppKit
+OTHER_FLAGS 	= -I /usr/X11/include -l mlx -framework OpenGL -framework AppKit
 
 GCC				= gcc
 CFLAGS			= -Wall -Wextra -Werror -o3

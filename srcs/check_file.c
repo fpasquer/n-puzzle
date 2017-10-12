@@ -6,7 +6,7 @@
 /*   By: fpasquer <fpasquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/11 10:50:30 by fpasquer          #+#    #+#             */
-/*   Updated: 2017/10/12 08:38:44 by fpasquer         ###   ########.fr       */
+/*   Updated: 2017/10/12 15:22:04 by fpasquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,8 @@ int							check_file(char **file)
 	y = 0;
 	if (file == NULL || *file == NULL || skip_comment(file, &y) == false)
 		return (false);
-	if (file[y] == NULL || (num = ft_atoi(file[y])) < SIZE_FILE_MIN)
+	if (file[y] == NULL || (num = ft_atoi(file[y])) < SIZE_FILE_MIN ||
+			num > SIZE_FILE_MAX)
 		return (false);
 	y++;
 	skip_comment(file, &y);

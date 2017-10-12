@@ -6,7 +6,7 @@
 #    By: fpasquer <fpasquer@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/08/22 11:05:13 by florian           #+#    #+#              #
-#    Updated: 2017/10/12 12:51:40 by fpasquer         ###   ########.fr        #
+#    Updated: 2017/10/12 13:14:01 by fpasquer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,6 +63,8 @@ fclean : clean
 	rm -rf $(NAME)
 	rm -rf $(NAME).dSYM
 	rm -rf $(OBJDIR)
+	rm -rf grid_generator
+	rm -rf grid
 	make -C libft fclear
 
 re : fclean All

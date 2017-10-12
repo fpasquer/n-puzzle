@@ -6,7 +6,7 @@
 /*   By: fpasquer <fpasquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/29 08:37:18 by fpasquer          #+#    #+#             */
-/*   Updated: 2017/10/12 09:58:59 by fpasquer         ###   ########.fr       */
+/*   Updated: 2017/10/12 10:55:28 by fpasquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,20 @@
 
 #define COOF_DEEP 3
 
-static bool					get_grid_loop(t_grid *grid, char **file, int *j,
-		int const k, t_coord const coord)
+static bool					get_grid_loop(t_grid *grid, char const *str, int *j,
+		t_coord const coord)
 {
-	if (grid == NULL || file == NULL || *file == NULL || j == NULL)
+	if (grid == NULL || str == NULL || j == NULL)
 		return (false);
-	while (file[k][*j] == ' ')
+	while (str[*j] == ' ')
 		(*j)++;
-	grid->grid[coord.y][coord.x] = (int)ft_atoi(&file[k][*j]);
-	while (ft_isdigit(file[k][*j]) == true)
+	grid->grid[coord.y][coord.x] = (int)ft_atoi(&str[*j]);
+	while (ft_isdigit(str[*j]) == true)
 		(*j)++;
-	while (file[k][*j] == ' ')
+	while (str[*j] == ' ')
 		(*j)++;
-	if (file[k][*j] == '#')
-		while (file[k][*j] != '\0')
+	if (str[*j] == '#')
+		while (str[*j] != '\0')
 			(*j)++;
 	return (true);
 }
@@ -47,7 +47,7 @@ static bool					start_get_grid_loop(t_grid **grid, char **file,
 		j = 0;
 		while (coord.x < (*grid)->x_y)
 		{
-			if (get_grid_loop(*grid, file, &j, k, coord) == false)
+			if (get_grid_loop(*grid, file[k], &j, coord) == false)
 				return (false);
 			coord.x++;
 		}

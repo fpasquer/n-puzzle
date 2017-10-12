@@ -6,7 +6,7 @@
 /*   By: fpasquer <fpasquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/28 17:27:29 by fpasquer          #+#    #+#             */
-/*   Updated: 2017/10/12 08:32:20 by fpasquer         ###   ########.fr       */
+/*   Updated: 2017/10/12 08:41:09 by fpasquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,7 @@ int							show_move_left(t_mlx_npuzzle **mlx);
 int							show_move_right(t_mlx_npuzzle **mlx);
 
 void						show_way(t_grid *grid, char ***file, int fd,
-		int const y_zero, int const x_zero);
+		t_coord const c_zero);
 int							draw_grid(t_mlx_npuzzle *mlx);
 int							key_hook(int key, void *param);
 int							loop_hook(void *param);

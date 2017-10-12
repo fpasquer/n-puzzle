@@ -6,7 +6,7 @@
 /*   By: fpasquer <fpasquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/02 18:13:02 by fpasquer          #+#    #+#             */
-/*   Updated: 2017/10/12 08:18:43 by fpasquer         ###   ########.fr       */
+/*   Updated: 2017/10/12 08:38:05 by fpasquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,10 @@ static int					in_loop_get_coord_value(t_coord coord_dest[],
 int							get_coord_value(int const value, int const x_y,
 		int *y, int *x)
 {
-	static t_coord			coord_dest[SIZE_file_MAX * SIZE_file_MAX];
+	static t_coord			coord_dest[SIZE_FILE_MAX * SIZE_FILE_MAX];
 	static int				loop = 0;
 
-	if (y == NULL || x == NULL || value >= SIZE_file_MAX * SIZE_file_MAX)
+	if (y == NULL || x == NULL || value >= SIZE_FILE_MAX * SIZE_FILE_MAX)
 		return (-1);
 	if (loop == 0)
 	{

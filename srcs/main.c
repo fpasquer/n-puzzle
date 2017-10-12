@@ -6,7 +6,7 @@
 /*   By: fpasquer <fpasquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/28 17:26:06 by fpasquer          #+#    #+#             */
-/*   Updated: 2017/10/10 14:32:22 by fpasquer         ###   ########.fr       */
+/*   Updated: 2017/10/12 08:42:25 by fpasquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void						start_loop(t_grid *grid, t_coord coord_zero,
 	}
 	printf("Time = %f\nMemory = %zu octets\n", (double)(clock() - start) /
 			CLOCKS_PER_SEC, sizeof(*grid) * grid->max_deep);
-	show_way(grid, &file, fd, coord_zero.y, coord_zero.x);
+	show_way(grid, &file, fd, coord_zero);
 }
 
 static void					main_next(int const fd, int const flags)

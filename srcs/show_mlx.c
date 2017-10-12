@@ -6,7 +6,7 @@
 /*   By: fpasquer <fpasquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/31 10:09:15 by fpasquer          #+#    #+#             */
-/*   Updated: 2017/10/12 08:15:44 by fpasquer         ###   ########.fr       */
+/*   Updated: 2017/10/12 08:41:59 by fpasquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static t_mlx_npuzzle		*init_mlx(t_grid *grid)
 }
 
 void						show_way(t_grid *grid, char ***file, int fd,
-		int const y_zero, int const x_zero)
+		t_coord const c_zero)
 {
 	t_mlx_npuzzle			*mlx;
 
@@ -73,8 +73,8 @@ void						show_way(t_grid *grid, char ***file, int fd,
 		mlx->grid = grid;
 		mlx->file = file;
 		mlx->fd = fd;
-		mlx->y_zero = y_zero;
-		mlx->x_zero = x_zero;
+		mlx->y_zero = c_zero.y;
+		mlx->x_zero = c_zero.x;
 		draw_grid(mlx);
 		mlx_loop_hook(mlx->mlx, loop_hook, &mlx);
 		mlx_key_hook(mlx->win, key_hook, &mlx);

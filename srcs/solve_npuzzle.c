@@ -6,7 +6,7 @@
 /*   By: fpasquer <fpasquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/29 11:01:24 by fpasquer          #+#    #+#             */
-/*   Updated: 2017/10/12 09:38:00 by fpasquer         ###   ########.fr       */
+/*   Updated: 2017/10/12 10:05:15 by fpasquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void						solve_npuzzle(t_grid *grid, int loop,
 		return ;
 	}
 	iteration++;
-	if (get_order_ways(grid, ways, move, c_zero.y, c_zero.x, weight) != true)
+	if (get_order_ways(grid, ways, move, c_zero, weight) != true)
 		return ;
 	i = 0;
 	while (g_moves[i].key != FLAG_NONE && grid->found != true)

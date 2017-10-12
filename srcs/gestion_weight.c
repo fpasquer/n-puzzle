@@ -6,7 +6,7 @@
 /*   By: fpasquer <fpasquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/02 14:19:49 by fpasquer          #+#    #+#             */
-/*   Updated: 2017/10/12 08:25:49 by fpasquer         ###   ########.fr       */
+/*   Updated: 2017/10/12 10:04:54 by fpasquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int					compar_weight_ways(void const *a_cpy,
 }
 
 static int					get_weight_way(t_grid *grid, int const way,
-		int const move, int const y_zero, int const x_zero, int weight)
+		int const move, t_coord const c_zero, int weight)
 {
 	int						i;
 	t_func_weight const		func_weight[] =
@@ -43,13 +43,13 @@ static int					get_weight_way(t_grid *grid, int const way,
 	i = 0;
 	while (func_weight[i].key != FLAG_NONE)
 		if (way == func_weight[i++].key)
-			return (func_weight[i - 1].f(grid, y_zero, x_zero, weight));
+			return (func_weight[i - 1].f(grid, c_zero.y, c_zero.x, weight));
 	return (INT_MIN);
 }
 
 int							get_order_ways(t_grid *grid,
-	t_way_weight ways[MAX_DEEP], int const move, int const y_zero,
-	int const x_zero, int weight)
+		t_way_weight ways[MAX_DEEP], int const move, t_coord const c_zero,
+		int weight)
 {
 	int						i;
 	int const				order_move[] =
@@ -62,8 +62,8 @@ int							get_order_ways(t_grid *grid,
 	{
 		ways[i].index = i;
 		ways[i].way = order_move[i];
-		ways[i].weight = get_weight_way(grid, order_move[i], move, y_zero,
-				x_zero, weight);
+		ways[i].weight = get_weight_way(grid, order_move[i], move, c_zero,
+				weight);
 		i++;
 	}
 	qsort(ways, MAX_WAY, sizeof(t_way_weight), compar_weight_ways);

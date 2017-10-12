@@ -6,7 +6,7 @@
 /*   By: fpasquer <fpasquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/28 17:27:29 by fpasquer          #+#    #+#             */
-/*   Updated: 2017/10/12 09:28:14 by fpasquer         ###   ########.fr       */
+/*   Updated: 2017/10/12 10:02:58 by fpasquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,8 +162,8 @@ int							close_hook(int button, void *param);
 void						leave_window(t_mlx_npuzzle **mlx);
 
 int							get_order_ways(t_grid *grid,
-		t_way_weight ways[MAX_DEEP], int const move, int const y_zero,
-		int const x_zero, int weight);
+		t_way_weight ways[MAX_DEEP], int const move, t_coord const c_zero,
+		int weight);
 int							get_weight_top(t_grid *grid, int const y_zero,
 		int const x_zero, int weight);
 int							get_weight_bottom(t_grid *grid, int const y_zero,

@@ -6,7 +6,7 @@
 /*   By: fpasquer <fpasquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/29 08:37:18 by fpasquer          #+#    #+#             */
-/*   Updated: 2017/10/12 08:22:23 by fpasquer         ###   ########.fr       */
+/*   Updated: 2017/10/12 09:58:59 by fpasquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 #define COOF_DEEP 3
 
 static bool					get_grid_loop(t_grid *grid, char **file, int *j,
-		int const k, int const y, int const x)
+		int const k, t_coord const coord)
 {
 	if (grid == NULL || file == NULL || *file == NULL || j == NULL)
 		return (false);
 	while (file[k][*j] == ' ')
 		(*j)++;
-	grid->grid[y][x] = (int)ft_atoi(&file[k][*j]);
+	grid->grid[coord.y][coord.x] = (int)ft_atoi(&file[k][*j]);
 	while (ft_isdigit(file[k][*j]) == true)
 		(*j)++;
 	while (file[k][*j] == ' ')
@@ -35,23 +35,25 @@ static bool					get_grid_loop(t_grid *grid, char **file, int *j,
 static bool					start_get_grid_loop(t_grid **grid, char **file,
 		int k)
 {
-	int						y;
-	int						x;
+	t_coord					coord;
 	int						j;
 
 	if (grid == NULL || file == NULL || *file == NULL || k < 0)
 		return (false);
-	y = 0;
+	coord.y = 0;
 	while (file[k] != NULL)
 	{
-		x = 0;
+		coord.x = 0;
 		j = 0;
-		while (x < (*grid)->x_y)
-			if (get_grid_loop(*grid, file, &j, k, y, x++) == false)
+		while (coord.x < (*grid)->x_y)
+		{
+			if (get_grid_loop(*grid, file, &j, k, coord) == false)
 				return (false);
+			coord.x++;
+		}
 		k++;
 		skip_comment(file, &k);
-		y++;
+		coord.y++;
 	}
 	return (true);
 }

@@ -6,7 +6,7 @@
 /*   By: fpasquer <fpasquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/29 11:27:41 by fpasquer          #+#    #+#             */
-/*   Updated: 2017/10/12 09:53:06 by fpasquer         ###   ########.fr       */
+/*   Updated: 2017/10/12 09:55:20 by fpasquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ int							move_left(t_grid *grid, int loop,
 }
 
 int							move_right(t_grid *grid, int loop,
-		t_coord const c_zero, int const move, int right_coord,int weight)
+		t_coord const c_zero, int const move, int right_coord, int weight)
 {
 	t_coord					cpy;
 

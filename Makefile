@@ -6,7 +6,7 @@
 #    By: fpasquer <fpasquer@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/08/22 11:05:13 by florian           #+#    #+#              #
-#    Updated: 2017/10/12 13:57:42 by amaindro         ###   ########.fr        #
+#    Updated: 2017/10/12 15:51:12 by fpasquer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ SRC_NAME		= main.c check_argv.c gestion_file.c gestion_grid.c				\
 				  functions_dfs.c solve_npuzzle.c moves.c show_mlx.c			\
 				  functions_events.c draw_grid.c functions_show_moves.c			\
 				  gestion_weight.c functions_weight.c solvable.c generate_grid.c\
-				  functions_weight2.c check_file.c moves2.c
+				  functions_weight2.c check_file.c moves2.c heuristics.c
 
 SRC_GENERATOR	= puzzle_generator.c puzzle_generator2.c
 

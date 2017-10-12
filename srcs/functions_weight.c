@@ -6,7 +6,7 @@
 /*   By: fpasquer <fpasquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/02 18:13:02 by fpasquer          #+#    #+#             */
-/*   Updated: 2017/10/12 10:10:32 by fpasquer         ###   ########.fr       */
+/*   Updated: 2017/10/12 16:17:54 by fpasquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,26 +108,4 @@ int							get_weight_init(t_grid *grid)
 		y++;
 	}
 	return (ret);
-}
-
-bool						linear_conflict(t_grid *grid, int const y,
-	int const x, int *weight)
-{
-	int						x_curs;
-	int						y_dest;
-	int						x_dest;
-
-	if (grid == NULL || grid->grid == NULL || weight == NULL)
-		return (false);
-	x_curs = x + 1;
-	while (x_curs < grid->x_y)
-	{
-		if (get_coord_value(grid->grid[y][x_curs], grid->x_y, &y_dest, &x_dest)
-				<= 0)
-			return (false);
-		if (y_dest == y && x_dest <= x)
-			(*weight) += 2;
-		x_curs++;
-	}
-	return (true);
 }

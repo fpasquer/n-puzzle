@@ -6,7 +6,7 @@
 /*   By: fpasquer <fpasquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/28 17:27:29 by fpasquer          #+#    #+#             */
-/*   Updated: 2017/10/12 10:41:59 by fpasquer         ###   ########.fr       */
+/*   Updated: 2017/10/12 16:21:21 by fpasquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@
 # define F_MANHATTAN 0x1
 # define F_MAL_PLACE 0x2
 # define F_LINEAR_C 0x4
+# define F_TILE_OUT 0x8
 
 int							g_way_good[MAX_DEEP];
 int							g_grid_3x3[3][3];
@@ -183,5 +184,6 @@ bool						linear_conflict(t_grid *grid, int const y,
 int							skip_comment(char **file, int *y);
 int							new_right_coord(t_grid *grid, t_coord const c_zero,
 		t_coord const new_c, int right_coord);
-
+int							tile_out_r_c(t_grid *grid, t_coord const c_new,
+		t_coord const coord, int *ret);
 #endif

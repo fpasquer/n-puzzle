@@ -6,7 +6,7 @@
 /*   By: fpasquer <fpasquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/28 17:32:11 by fpasquer          #+#    #+#             */
-/*   Updated: 2017/10/10 14:17:34 by fpasquer         ###   ########.fr       */
+/*   Updated: 2017/10/12 16:12:19 by fpasquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ int							check_argv(char **path, int *flags)
 			*flags = *flags ^ F_MAL_PLACE;
 		else if (ft_strcmp(path[i], "-linear_c") == 0)
 			*flags = *flags ^ F_LINEAR_C;
+		else if (ft_strcmp(path[i], "-tile_out") == 0)
+			*flags = *flags ^ F_TILE_OUT;
 		else
 			break ;
 	}

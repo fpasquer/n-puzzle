@@ -6,69 +6,41 @@
 /*   By: fpasquer <fpasquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/10 09:10:59 by fpasquer          #+#    #+#             */
-/*   Updated: 2017/10/10 19:23:42 by fpasquer         ###   ########.fr       */
+/*   Updated: 2017/10/12 11:59:39 by fpasquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/npuzzle.h"
 
-static int					find_value_position(int const grid[], int const x_y,
-		int const value)
+#define MAXDIM 6
+
+static bool					soluble(int nc, int nl, int *jeu)
 {
 	int						i;
-	int						end;
+	int						p_zero;
+	int						n;
+	int						n_permut;
+	int						copie[MAXDIM * MAXDIM];
 
-	i = 0;
-	end = x_y * x_y;
-	while (i < end)
-		if (grid[i++] == value)
-			return (i - 1);
-	return (-1);
-}
-
-static int					find_value_dest(int const x_y, int value)
-{
-	int						end;
-	int						i;
-
-	end = x_y * x_y;
-	if (value == EMPTY)
-		return (end - 1);
-	i = 0;
-	value--;
-	while (i < end)
-		if (i++ == value)
-			return (i - 1);
-	return (-1);
-}
-
-static bool					solvable_check(int grid[], int const x_y,
-		int const end)
-{
-	int						i;
-	int						position;
-	int						dest;
-	int						switch_val;
-	int						tmp;
-
-	i = 0;
-	switch_val = 0;
-	while (i < end)
+	i = -1;
+	n = nc * nc - 1;
+	while (++i <= n)
+		if ((copie[i] = jeu[i]) == 0)
+			p_zero = i;
+	n_permut = (n - p_zero) % nc + (n - p_zero) / nc;
+	while (n > 0)
 	{
-		if ((position = find_value_position(grid, x_y, i)) == -1)
-			return (false);
-		if ((dest = find_value_dest(x_y, i)) == -1)
-			return (false);
-		if (position != dest)
+		if (n != p_zero)
 		{
-			tmp = grid[position];
-			grid[position] = grid[dest];
-			grid[dest] = tmp;
-			switch_val++;
+			copie[p_zero] = copie[n];
+			p_zero = n;
+			n_permut++;
 		}
-		i++;
+		while (copie[--p_zero] != n)
+			;
+		n--;
 	}
-	return (switch_val % 2);
+	return (1 & n_permut);
 }
 
 bool						solvable(t_grid *grid)
@@ -92,7 +64,7 @@ bool						solvable(t_grid *grid)
 			grid_tab[i++] = grid->grid[y][x++];
 		y++;
 	}
-	ret = solvable_check(grid_tab, grid->x_y, grid->x_y * grid->x_y);
+	ret = soluble(grid->x_y, grid->x_y, grid_tab);
 	ft_memdel((void**)&grid_tab);
 	grid->found = ret == false ? true : grid->found;
 	printf("La grille est %s\n", ret == true ? "Solvable" : "Insolvable");

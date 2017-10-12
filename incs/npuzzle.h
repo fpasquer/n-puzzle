@@ -6,7 +6,7 @@
 /*   By: fpasquer <fpasquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/28 17:27:29 by fpasquer          #+#    #+#             */
-/*   Updated: 2017/10/11 11:50:54 by fpasquer         ###   ########.fr       */
+/*   Updated: 2017/10/12 08:32:20 by fpasquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <sys/mman.h>
-#include "../minilibx_macos/mlx.h"
-#include <time.h>
+# include "../minilibx_macos/mlx.h"
+# include <time.h>
 
 # define NB_PIX_EACH_BOX 100
 
@@ -27,17 +27,16 @@
 # define DEFAULT_SIZE 3u
 # define DEFAULT_FILE "grid"
 
-//# define DEBUG
+# ifdef DEBUG
+#  define MAX_DEEP 5
+# else
+#  define MAX_DEEP 50
+# endif
 
-#ifdef DEBUG
-	# define MAX_DEEP 5
-#else
-	# define MAX_DEEP 50
-#endif
 # define MAX_WAY 4
 
-# define SIZE_file_MIN 3
-# define SIZE_file_MAX 5
+# define SIZE_FILE_MIN 3
+# define SIZE_FILE_MAX 5
 
 # define EMPTY 0
 
@@ -57,7 +56,6 @@
 # define F_MAL_PLACE 0x2
 # define F_LINEAR_C 0x4
 
-//int							g_way_move[MAX_DEEP];
 int							g_way_good[MAX_DEEP];
 int							g_grid_3x3[3][3];
 int							g_grid_4x4[4][4];
@@ -126,7 +124,8 @@ char						**save_file(int const fd);
 int							check_file(char **file);
 bool						print_file(char **file);
 bool						del_file(char ***file);
-t_grid						*get_grid(char **file, int const x_y, int const flags);
+t_grid						*get_grid(char **file, int const x_y,
+		int const flags);
 bool						print_grid(t_grid *grid, int const deep,
 		unsigned int move);
 bool						del_grid(t_grid **grid);

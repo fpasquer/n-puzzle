@@ -6,7 +6,7 @@
 /*   By: fpasquer <fpasquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/28 18:10:29 by fpasquer          #+#    #+#             */
-/*   Updated: 2017/10/11 10:51:54 by fpasquer         ###   ########.fr       */
+/*   Updated: 2017/10/12 08:21:14 by fpasquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ bool						print_file(char **file)
 bool						del_file(char ***file)
 {
 	unsigned int			y;
-	
+
 	if (file == NULL || *file == NULL || **file == NULL)
 		return (false);
 	y = 0;

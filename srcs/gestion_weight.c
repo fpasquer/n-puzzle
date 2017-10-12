@@ -6,7 +6,7 @@
 /*   By: fpasquer <fpasquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/02 14:19:49 by fpasquer          #+#    #+#             */
-/*   Updated: 2017/10/10 19:27:14 by fpasquer         ###   ########.fr       */
+/*   Updated: 2017/10/12 08:25:49 by fpasquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,10 @@ static int					get_weight_way(t_grid *grid, int const way,
 		int const move, int const y_zero, int const x_zero, int weight)
 {
 	int						i;
-	t_func_weight const 	func_weight[] =
-	{
-		{FLAG_TOP, get_weight_top},
-		{FLAG_BOTTOM, get_weight_bottom},
-		{FLAG_LEFT, get_weight_left},
-		{FLAG_RIGHT, get_weight_right},
-		{FLAG_NONE, NULL}
-	};
+	t_func_weight const		func_weight[] =
+	{{FLAG_TOP, get_weight_top}, {FLAG_BOTTOM, get_weight_bottom},
+		{FLAG_LEFT, get_weight_left}, {FLAG_RIGHT, get_weight_right},
+		{FLAG_NONE, NULL}};
 
 	if (grid == NULL || grid->grid == NULL || (move & way) == 0)
 		return (INT_MIN);
@@ -56,8 +52,8 @@ int							get_order_ways(t_grid *grid,
 	int const x_zero, int weight)
 {
 	int						i;
-	int						order_move[] =
-			{FLAG_TOP, FLAG_BOTTOM, FLAG_LEFT, FLAG_RIGHT};
+	int const				order_move[] =
+	{FLAG_TOP, FLAG_BOTTOM, FLAG_LEFT, FLAG_RIGHT};
 
 	if (grid == NULL || ways == NULL)
 		return (-1);

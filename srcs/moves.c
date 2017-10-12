@@ -6,7 +6,7 @@
 /*   By: fpasquer <fpasquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/29 11:27:41 by fpasquer          #+#    #+#             */
-/*   Updated: 2017/09/20 11:19:57 by fpasquer         ###   ########.fr       */
+/*   Updated: 2017/10/12 08:27:37 by fpasquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,51 +41,50 @@ static int					new_right_coord(t_grid *grid, int const y_zero,
 	return (right_coord);
 }
 
-	static int					general_move(t_grid *grid, int const y_zero,
-			int const x_zero, int const new_y, int const new_x, int const loop,
-			int right_coord, int move, int weight)
-	{
-		int						mem_x_prev;
-		int						mem_y_prev;
+static int					general_move(t_grid *grid, int const y_zero,
+		int const x_zero, int const new_y, int const new_x, int const loop,
+		int right_coord, int move, int weight)
+{
+	int						mem_x_prev;
+	int						mem_y_prev;
 
-		if (grid == NULL || grid->grid == NULL)
-			return (-1);
-		g_way_good[loop] = move;
-		right_coord = new_right_coord(grid, y_zero, x_zero, new_y, new_x,
-				right_coord);
-		mem_x_prev = grid->prev.y;
-		mem_y_prev = grid->prev.y;
-		grid->prev.x = x_zero;
-		grid->prev.y = y_zero;
-		grid->grid[y_zero][x_zero] = grid->grid[new_y][new_x];
-		grid->grid[new_y][new_x] = EMPTY;
-		solve_npuzzle(grid, loop + 1, new_y, new_x,
-				get_move_possible(grid, new_y, new_x), right_coord, weight);
-		grid->prev.x = mem_x_prev;
-		grid->prev.y = mem_y_prev;
-		grid->grid[new_y][new_x] = grid->grid[y_zero][x_zero];
-		grid->grid[y_zero][x_zero] = EMPTY;
-		return (true);
-	}
+	if (grid == NULL || grid->grid == NULL)
+		return (-1);
+	g_way_good[loop] = move;
+	right_coord = new_right_coord(grid, y_zero, x_zero, new_y, new_x,
+			right_coord);
+	mem_x_prev = grid->prev.y;
+	mem_y_prev = grid->prev.y;
+	grid->prev.x = x_zero;
+	grid->prev.y = y_zero;
+	grid->grid[y_zero][x_zero] = grid->grid[new_y][new_x];
+	grid->grid[new_y][new_x] = EMPTY;
+	solve_npuzzle(grid, loop + 1, new_y, new_x,
+			get_move_possible(grid, new_y, new_x), right_coord, weight);
+	grid->prev.x = mem_x_prev;
+	grid->prev.y = mem_y_prev;
+	grid->grid[new_y][new_x] = grid->grid[y_zero][x_zero];
+	grid->grid[y_zero][x_zero] = EMPTY;
+	return (true);
+}
 
-	int							move_top(t_grid *grid, int loop,
-			int const y_zero, int const x_zero, int const move, int right_coord,
-			int weight)
-	{
-		if (grid == NULL || grid->grid == NULL)
-			return (-1);
-		if ((move & FLAG_TOP) == 0)
-			return (false);
-		return (general_move(grid, y_zero, x_zero, y_zero - 1, x_zero, loop,
-				right_coord, MOVE_TOP, weight));
-		
-	}
+int							move_top(t_grid *grid, int loop,
+		int const y_zero, int const x_zero, int const move, int right_coord,
+		int weight)
+{
+	if (grid == NULL || grid->grid == NULL)
+		return (-1);
+	if ((move & FLAG_TOP) == 0)
+		return (false);
+	return (general_move(grid, y_zero, x_zero, y_zero - 1, x_zero, loop,
+			right_coord, MOVE_TOP, weight));
+}
 
 int							move_bottom(t_grid *grid, int loop,
 		int const y_zero, int const x_zero, int const move, int right_coord,
 		int weight)
 {
-if (grid == NULL || grid->grid == NULL)
+	if (grid == NULL || grid->grid == NULL)
 		return (-1);
 	if ((move & FLAG_BOTTOM) == 0)
 		return (false);

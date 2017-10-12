@@ -6,11 +6,11 @@
 /*   By: fpasquer <fpasquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/31 10:09:15 by fpasquer          #+#    #+#             */
-/*   Updated: 2017/10/10 19:13:07 by fpasquer         ###   ########.fr       */
+/*   Updated: 2017/10/12 08:15:44 by fpasquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../incs/npuzzle.h"
+#include "../incs/npuzzle.h"
 
 static t_mlx_npuzzle		*init_mlx_next(t_mlx_npuzzle *mlx, t_grid *grid)
 {
@@ -28,7 +28,7 @@ static t_mlx_npuzzle		*init_mlx_next(t_mlx_npuzzle *mlx, t_grid *grid)
 	{
 		if ((mlx->data[i] = (int*)mlx_get_data_addr(mlx->img[i], &mlx->t[0],
 				&mlx->t[1], &mlx->t[2])) == NULL)
-			break;
+			break ;
 		i++;
 	}
 	return (mlx);
@@ -62,7 +62,6 @@ static t_mlx_npuzzle		*init_mlx(t_grid *grid)
 void						show_way(t_grid *grid, char ***file, int fd,
 		int const y_zero, int const x_zero)
 {
-	
 	t_mlx_npuzzle			*mlx;
 
 	if (grid == NULL || (mlx = ft_memalloc(sizeof(*mlx))) == NULL)

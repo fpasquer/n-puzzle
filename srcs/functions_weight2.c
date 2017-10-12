@@ -6,13 +6,13 @@
 /*   By: fpasquer <fpasquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/11 08:57:47 by fpasquer          #+#    #+#             */
-/*   Updated: 2017/10/11 09:01:18 by fpasquer         ###   ########.fr       */
+/*   Updated: 2017/10/12 08:19:54 by fpasquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/npuzzle.h"
 
-static int			general_weight(t_grid *grid, int const flag,
+static int					general_weight(t_grid *grid, int const flag,
 		int const y_zero, int const x_zero, int const y_new, int const x_new,
 		int weight)
 {
@@ -43,13 +43,12 @@ static int			general_weight(t_grid *grid, int const flag,
 	return (ret);
 }
 
-
 int							get_weight_top(t_grid *grid, int const y_zero,
 		int const x_zero, int weight)
 {
 	if (grid == NULL || grid->grid == NULL || y_zero - 1 < 0)
 		return (INT_MIN);
-	return (general_weight(grid, FLAG_TOP, y_zero, x_zero, y_zero - 1, x_zero, 
+	return (general_weight(grid, FLAG_TOP, y_zero, x_zero, y_zero - 1, x_zero,
 			weight));
 }
 

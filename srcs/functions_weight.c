@@ -6,14 +6,14 @@
 /*   By: fpasquer <fpasquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/02 18:13:02 by fpasquer          #+#    #+#             */
-/*   Updated: 2017/10/11 09:05:45 by fpasquer         ###   ########.fr       */
+/*   Updated: 2017/10/12 08:18:43 by fpasquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/npuzzle.h"
 
-static int					get_weight_init_value(t_grid *grid, int const
-		y_coord, int const x_coord)
+static int					get_weight_init_value(t_grid *grid,
+		int const y_coord, int const x_coord)
 {
 	int						y;
 	int						x;
@@ -31,7 +31,7 @@ static int					get_weight_init_value(t_grid *grid, int const
 	if (ret1 == 0 && x_coord < grid->x_y - 1)
 		if (linear_conflict(grid, y_coord, x_coord, &linear_c) != true)
 			return (INT_MIN);
-	return(ret1 + ret2 + linear_c);
+	return (ret1 + ret2 + linear_c);
 }
 
 static int					in_loop_get_coord_value(t_coord coord_dest[],
@@ -84,7 +84,7 @@ int							get_coord_value(int const value, int const x_y,
 	return (true);
 }
 
-int					get_weight_init(t_grid *grid)
+int							get_weight_init(t_grid *grid)
 {
 	int						y;
 	int						x;
@@ -131,4 +131,3 @@ bool						linear_conflict(t_grid *grid, int const y,
 	}
 	return (true);
 }
-

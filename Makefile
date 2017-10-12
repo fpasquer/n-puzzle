@@ -6,7 +6,7 @@
 #    By: fpasquer <fpasquer@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/08/22 11:05:13 by florian           #+#    #+#              #
-#    Updated: 2017/10/12 13:14:01 by fpasquer         ###   ########.fr        #
+#    Updated: 2017/10/12 13:57:42 by amaindro         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,10 @@ SRC_NAME		= main.c check_argv.c gestion_file.c gestion_grid.c				\
 				  functions_events.c draw_grid.c functions_show_moves.c			\
 				  gestion_weight.c functions_weight.c solvable.c generate_grid.c\
 				  functions_weight2.c check_file.c moves2.c
+
+SRC_GENERATOR	= puzzle_generator.c puzzle_generator2.c
+
+INC_GENERATOR	= puzzle_generator.h
 
 INCLUDES		= npuzzle.h
 
@@ -35,6 +39,7 @@ OBJDIR			= objs
 INCDIR			= incs
 
 SRC				= $(addprefix $(SRCDIR)/, $(SRC_NAME))
+SRC_GEN			= $(addprefix $(SRCDIR)/, $(SRC_GENERATOR))
 OBJ				= $(addprefix $(OBJDIR)/, $(OBJ_NAME))
 INC				= $(addprefix $(INCDIR)/, $(INCLUDES))
 DATE			= `date +'%d/%m/%y %H:%M:%S'`
@@ -43,7 +48,7 @@ All : $(NAME)
 
 $(NAME) :  $(LIBRARY) $(OBJDIR) $(OBJ)
 	$(GCC) $(CFLAGS) $(OTHER_FLAGS) -m$(ARCH) -o $(NAME) $(OBJ) $(LIBRARY)
-	$(GCC) $(CFLAGS) $(LIBRARY) -o grid_generator $(SRCDIR)/puzzle_generator.c
+	$(GCC) $(CFLAGS) $(LIBRARY) -o grid_generator $(SRC_GEN)
 	@echo "\033[0;32m"$(NAME) "DONE\033[0m"
 
 $(LIBRARY) :

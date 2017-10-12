@@ -6,84 +6,42 @@
 /*   By: amaindro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/10 11:43:57 by amaindro          #+#    #+#             */
-/*   Updated: 2017/10/12 12:46:59 by fpasquer         ###   ########.fr       */
+/*   Updated: 2017/10/12 13:54:15 by amaindro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft/libft.h"
-#include <time.h>
-#include <sys/types.h>
-#include <unistd.h>
-#include <stdio.h>
+#include "../incs/puzzle_generator.h"
 
-int		*puzzle_swapper(int s, int *puzzle)
+void	change_increment(int cond1, int cond2, int *x1, int *y1)
 {
-	int		pos0;
-	int		chozen_switch;
-	int		rand1;
-	int		rand2;
-
-	pos0 = 0;
-	while (pos0 < s * s && puzzle[pos0] != 0)
-		pos0++;
-	rand1 = -1;
-	if (pos0 % s > 0 && rand1 < (rand2 = rand()))
+	if (cond1)
 	{
-		chozen_switch = pos0 - 1;
-		rand1 = rand2;
+		*y1 = *x1;
+		*x1 = 0;
 	}
-	if (pos0 % s < s - 1 && rand1 < (rand2 = rand()))
+	else if (cond2)
 	{
-		chozen_switch = pos0 + 1;
-		rand1 = rand2;
+		*x1 = -*y1;
+		*y1 = 0;
 	}
-	if (pos0 / s > 0 && rand1 < (rand2 = rand()))
-	{
-		chozen_switch = pos0 - s;
-		rand1 = rand2;
-	}
-	if (pos0 / s < s - 1 && rand1 < (rand2 = rand()))
-		chozen_switch = pos0 + s;
-	puzzle[pos0] = puzzle[chozen_switch];
-	puzzle[chozen_switch] = 0;
-	return (puzzle);
 }
 
-int		*puzzle_generator(int s)
+int		*puzzle_filler(int *puzzle, int s, int x[], int y[])
 {
-	int		*puzzle;
 	int		cur;
-	int		x[2];
-	int		y[2];
 
-	if (!(puzzle = ft_memalloc(sizeof(int) * s * s)))
-		return (NULL);
-	x[0] = 0;
-	while (x[0] < s * s)
-		puzzle[x[0]++] = -1;
 	cur = 1;
-	x[0] = 0;
-	x[1] = 1;
-	y[0] = 0;
-	y[1] = 0;
 	while (1)
 	{
 		puzzle[x[0] + y[0] * s] = cur;
 		if (cur == 0)
 			break ;
 		cur++;
-		if (x[0] + x[1] == s || x[0] + x[1] < 0 ||
-				(x[1] != 0 && puzzle[x[0] + x[1] + y[0] * s] != -1))
-		{
-			y[1] = x[1];
-			x[1] = 0;
-		}
-		else if (y[0] + y[1] == s || y[0] + y[1] < 0 ||
-				(y[1] != 0 && puzzle[x[0] + (y[1] + y[0]) * s] != -1))
-		{
-			x[1] = -y[1];
-			y[1] = 0;
-		}
+		change_increment((x[0] + x[1] == s || x[0] + x[1] < 0 ||
+				(x[1] != 0 && puzzle[x[0] + x[1] + y[0] * s] != -1)),
+				(y[0] + y[1] == s || y[0] + y[1] < 0 ||
+				(y[1] != 0 && puzzle[x[0] + (y[1] + y[0]) * s] != -1)),
+				&x[1], &y[1]);
 		x[0] += x[1];
 		y[0] += y[1];
 		if (cur == s * s)
@@ -92,29 +50,22 @@ int		*puzzle_generator(int s)
 	return (puzzle);
 }
 
-int		*make_solvable_or_not(int size, int solvable, int *puzzle)
+int		*puzzle_generator(int s)
 {
-	int		tmp;
+	int		*puzzle;
+	int		x[2];
+	int		y[2];
 
-	if (solvable == 1)
-	{
-		printf("# This puzzle is unsolvable\n%d\n", size);
-		if (puzzle[0] == 0 || puzzle[1] == 0)
-		{
-			tmp = puzzle[size * size - 1];
-			puzzle[size * size - 1] = puzzle[size * size - 2];
-			puzzle[size * size - 2] = tmp;
-		}
-		else
-		{
-			tmp = puzzle[0];
-			puzzle[0] = puzzle[1];
-			puzzle[1] = tmp;
-		}
-	}
-	else
-		printf("# This puzzle is solvable\n%d\n", size);
-	return (puzzle);
+	if (!(puzzle = ft_memalloc(sizeof(int) * s * s)))
+		return (NULL);
+	x[0] = 0;
+	while (x[0] < s * s)
+		puzzle[x[0]++] = -1;
+	x[0] = 0;
+	x[1] = 1;
+	y[0] = 0;
+	y[1] = 0;
+	return (puzzle_filler(puzzle, s, x, y));
 }
 
 void	print_grid(int size, int solvable)
@@ -139,6 +90,7 @@ void	print_grid(int size, int solvable)
 		printf("\n");
 		y++;
 	}
+	ft_memdel((void**)&puzzle);
 }
 
 int		main(int ac, char **av)

@@ -6,7 +6,7 @@
 /*   By: fpasquer <fpasquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/11 08:57:47 by fpasquer          #+#    #+#             */
-/*   Updated: 2017/10/12 10:24:13 by fpasquer         ###   ########.fr       */
+/*   Updated: 2017/10/12 10:30:39 by fpasquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int							get_weight_left(t_grid *grid, t_coord const c_zero,
 		return (INT_MIN);
 	cpy.y = c_zero.y;
 	cpy.x = c_zero.x - 1;
-	return (general_weight(grid, FLAG_LEFT, c_zero, cpy,weight));
+	return (general_weight(grid, FLAG_LEFT, c_zero, cpy, weight));
 }
 
 int							get_weight_right(t_grid *grid, t_coord const c_zero,

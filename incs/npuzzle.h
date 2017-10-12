@@ -6,7 +6,7 @@
 /*   By: fpasquer <fpasquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/28 17:27:29 by fpasquer          #+#    #+#             */
-/*   Updated: 2017/10/12 10:10:13 by fpasquer         ###   ########.fr       */
+/*   Updated: 2017/10/12 10:29:16 by fpasquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,5 +181,7 @@ bool						generate_grid(void);
 bool						linear_conflict(t_grid *grid, int const y,
 	int const x, int *weight);
 int							skip_comment(char **file, int *y);
+int							new_right_coord(t_grid *grid, t_coord const c_zero,
+		t_coord const new_c, int right_coord);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: fpasquer <fpasquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/10 09:10:59 by fpasquer          #+#    #+#             */
-/*   Updated: 2017/10/12 11:59:39 by fpasquer         ###   ########.fr       */
+/*   Updated: 2017/10/12 12:46:04 by fpasquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static bool					soluble(int nc, int nl, int *jeu)
 	int						copie[MAXDIM * MAXDIM];
 
 	i = -1;
-	n = nc * nc - 1;
+	n = nc * nl - 1;
 	while (++i <= n)
 		if ((copie[i] = jeu[i]) == 0)
 			p_zero = i;

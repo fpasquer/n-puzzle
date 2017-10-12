@@ -6,7 +6,7 @@
 #    By: fpasquer <fpasquer@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/08/22 11:05:13 by florian           #+#    #+#              #
-#    Updated: 2017/10/12 10:29:32 by fpasquer         ###   ########.fr        #
+#    Updated: 2017/10/12 12:51:40 by fpasquer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,6 +43,7 @@ All : $(NAME)
 
 $(NAME) :  $(LIBRARY) $(OBJDIR) $(OBJ)
 	$(GCC) $(CFLAGS) $(OTHER_FLAGS) -m$(ARCH) -o $(NAME) $(OBJ) $(LIBRARY)
+	$(GCC) $(CFLAGS) $(LIBRARY) -o grid_generator $(SRCDIR)/puzzle_generator.c
 	@echo "\033[0;32m"$(NAME) "DONE\033[0m"
 
 $(LIBRARY) :

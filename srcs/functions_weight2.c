@@ -6,14 +6,14 @@
 /*   By: fpasquer <fpasquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/11 08:57:47 by fpasquer          #+#    #+#             */
-/*   Updated: 2017/10/12 10:19:58 by fpasquer         ###   ########.fr       */
+/*   Updated: 2017/10/12 10:24:13 by fpasquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/npuzzle.h"
 
 static int					general_weight(t_grid *grid, int const flag,
-		int const y_zero, int const x_zero, t_coord const c_new, int weight)
+		t_coord const c_zero, t_coord const c_new, int weight)
 {
 	int						y;
 	int						x;
@@ -25,8 +25,8 @@ static int					general_weight(t_grid *grid, int const flag,
 		return (flag);
 	if (get_coord_value(grid->grid[c_new.y][c_new.x], grid->x_y, &y, &x) <= 0)
 		return (INT_MIN);
-	ret1 = (y > y_zero) ? y - y_zero : y_zero - y;
-	ret2 = (x > x_zero) ? x - x_zero : x_zero - x;
+	ret1 = (y > c_zero.y) ? y - c_zero.y : c_zero.y - y;
+	ret2 = (x > c_zero.x) ? x - c_zero.x : c_zero.x - x;
 	if ((grid->flag & F_MANHATTAN) != 0)
 	{
 		ret += weight;
@@ -36,8 +36,8 @@ static int					general_weight(t_grid *grid, int const flag,
 	}
 	if ((grid->flag & F_MAL_PLACE) != 0)
 		ret += (ret1 + ret2 == 0) ? 1 : 0;
-	if ((grid->flag & F_LINEAR_C) != 0 && ret1 == 0 && x_zero < grid->x_y - 1)
-		if (linear_conflict(grid, y_zero, x_zero, &ret) != true)
+	if ((grid->flag & F_LINEAR_C) != 0 && ret1 == 0 && c_zero.x < grid->x_y - 1)
+		if (linear_conflict(grid, c_zero.y, c_zero.x, &ret) != true)
 			return (INT_MIN);
 	return (ret);
 }
@@ -51,8 +51,7 @@ int							get_weight_top(t_grid *grid, t_coord const c_zero,
 		return (INT_MIN);
 	cpy.y = c_zero.y - 1;
 	cpy.x = c_zero.x;
-	return (general_weight(grid, FLAG_TOP, c_zero.y, c_zero.x, cpy,
-			weight));
+	return (general_weight(grid, FLAG_TOP, c_zero, cpy, weight));
 }
 
 int							get_weight_bottom(t_grid *grid,
@@ -64,7 +63,7 @@ int							get_weight_bottom(t_grid *grid,
 		return (INT_MIN);
 	cpy.y = c_zero.y + 1;
 	cpy.x = c_zero.x;
-	return (general_weight(grid, FLAG_BOTTOM, c_zero.y, c_zero.x, cpy, weight));
+	return (general_weight(grid, FLAG_BOTTOM, c_zero, cpy, weight));
 }
 
 int							get_weight_left(t_grid *grid, t_coord const c_zero,
@@ -76,8 +75,7 @@ int							get_weight_left(t_grid *grid, t_coord const c_zero,
 		return (INT_MIN);
 	cpy.y = c_zero.y;
 	cpy.x = c_zero.x - 1;
-	return (general_weight(grid, FLAG_LEFT, c_zero.y, c_zero.x, cpy,
-			weight));
+	return (general_weight(grid, FLAG_LEFT, c_zero, cpy,weight));
 }
 
 int							get_weight_right(t_grid *grid, t_coord const c_zero,
@@ -89,6 +87,5 @@ int							get_weight_right(t_grid *grid, t_coord const c_zero,
 		return (INT_MIN);
 	cpy.y = c_zero.y;
 	cpy.x = c_zero.x + 1;
-	return (general_weight(grid, FLAG_RIGHT, c_zero.y, c_zero.x, cpy,
-			weight));
+	return (general_weight(grid, FLAG_RIGHT, c_zero, cpy, weight));
 }

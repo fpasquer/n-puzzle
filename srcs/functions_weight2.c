@@ -6,15 +6,14 @@
 /*   By: fpasquer <fpasquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/11 08:57:47 by fpasquer          #+#    #+#             */
-/*   Updated: 2017/10/12 10:03:08 by fpasquer         ###   ########.fr       */
+/*   Updated: 2017/10/12 10:19:58 by fpasquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/npuzzle.h"
 
 static int					general_weight(t_grid *grid, int const flag,
-		int const y_zero, int const x_zero, int const y_new, int const x_new,
-		int weight)
+		int const y_zero, int const x_zero, t_coord const c_new, int weight)
 {
 	int						y;
 	int						x;
@@ -24,7 +23,7 @@ static int					general_weight(t_grid *grid, int const flag,
 
 	if ((ret = 0) == 0 && grid->flag == 0)
 		return (flag);
-	if (get_coord_value(grid->grid[y_new][x_new], grid->x_y, &y, &x) <= 0)
+	if (get_coord_value(grid->grid[c_new.y][c_new.x], grid->x_y, &y, &x) <= 0)
 		return (INT_MIN);
 	ret1 = (y > y_zero) ? y - y_zero : y_zero - y;
 	ret2 = (x > x_zero) ? x - x_zero : x_zero - x;
@@ -32,8 +31,8 @@ static int					general_weight(t_grid *grid, int const flag,
 	{
 		ret += weight;
 		ret += ret1 + ret2;
-		ret -= (y > y_new) ? y - y_new : y_new - y;
-		ret -= (x > x_new) ? x - x_new : x_new - x;
+		ret -= (y > c_new.y) ? y - c_new.y : c_new.y - y;
+		ret -= (x > c_new.x) ? x - c_new.x : c_new.x - x;
 	}
 	if ((grid->flag & F_MAL_PLACE) != 0)
 		ret += (ret1 + ret2 == 0) ? 1 : 0;
@@ -43,38 +42,53 @@ static int					general_weight(t_grid *grid, int const flag,
 	return (ret);
 }
 
-int							get_weight_top(t_grid *grid, int const y_zero,
-		int const x_zero, int weight)
+int							get_weight_top(t_grid *grid, t_coord const c_zero,
+		int weight)
 {
-	if (grid == NULL || grid->grid == NULL || y_zero - 1 < 0)
+	t_coord					cpy;
+
+	if (grid == NULL || grid->grid == NULL || c_zero.y - 1 < 0)
 		return (INT_MIN);
-	return (general_weight(grid, FLAG_TOP, y_zero, x_zero, y_zero - 1, x_zero,
+	cpy.y = c_zero.y - 1;
+	cpy.x = c_zero.x;
+	return (general_weight(grid, FLAG_TOP, c_zero.y, c_zero.x, cpy,
 			weight));
 }
 
-int							get_weight_bottom(t_grid *grid, int const y_zero,
-		int const x_zero, int weight)
+int							get_weight_bottom(t_grid *grid,
+		t_coord const c_zero, int weight)
 {
-	if (grid == NULL || grid->grid == NULL || y_zero + 1 >= grid->x_y)
+	t_coord					cpy;
+
+	if (grid == NULL || grid->grid == NULL || c_zero.y + 1 >= grid->x_y)
 		return (INT_MIN);
-	return (general_weight(grid, FLAG_BOTTOM, y_zero, x_zero, y_zero + 1,
-			x_zero, weight));
+	cpy.y = c_zero.y + 1;
+	cpy.x = c_zero.x;
+	return (general_weight(grid, FLAG_BOTTOM, c_zero.y, c_zero.x, cpy, weight));
 }
 
-int							get_weight_left(t_grid *grid, int const y_zero,
-		int const x_zero, int weight)
+int							get_weight_left(t_grid *grid, t_coord const c_zero,
+		int weight)
 {
-	if (grid == NULL || grid->grid == NULL || x_zero - 1 < 0)
+	t_coord					cpy;
+
+	if (grid == NULL || grid->grid == NULL || c_zero.x - 1 < 0)
 		return (INT_MIN);
-	return (general_weight(grid, FLAG_LEFT, y_zero, x_zero, y_zero, x_zero - 1,
+	cpy.y = c_zero.y;
+	cpy.x = c_zero.x - 1;
+	return (general_weight(grid, FLAG_LEFT, c_zero.y, c_zero.x, cpy,
 			weight));
 }
 
-int							get_weight_right(t_grid *grid, int const y_zero,
-		int const x_zero, int weight)
+int							get_weight_right(t_grid *grid, t_coord const c_zero,
+		int weight)
 {
-	if (grid == NULL || grid->grid == NULL || x_zero + 1 >= grid->x_y)
+	t_coord					cpy;
+
+	if (grid == NULL || grid->grid == NULL || c_zero.x + 1 >= grid->x_y)
 		return (INT_MIN);
-	return (general_weight(grid, FLAG_RIGHT, y_zero, x_zero, y_zero, x_zero + 1,
+	cpy.y = c_zero.y;
+	cpy.x = c_zero.x + 1;
+	return (general_weight(grid, FLAG_RIGHT, c_zero.y, c_zero.x, cpy,
 			weight));
 }

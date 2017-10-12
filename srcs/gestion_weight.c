@@ -6,7 +6,7 @@
 /*   By: fpasquer <fpasquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/02 14:19:49 by fpasquer          #+#    #+#             */
-/*   Updated: 2017/10/12 10:04:54 by fpasquer         ###   ########.fr       */
+/*   Updated: 2017/10/12 10:10:25 by fpasquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static int					get_weight_way(t_grid *grid, int const way,
 	i = 0;
 	while (func_weight[i].key != FLAG_NONE)
 		if (way == func_weight[i++].key)
-			return (func_weight[i - 1].f(grid, c_zero.y, c_zero.x, weight));
+			return (func_weight[i - 1].f(grid, c_zero, weight));
 	return (INT_MIN);
 }
 

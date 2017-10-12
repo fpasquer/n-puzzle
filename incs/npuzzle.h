@@ -6,7 +6,7 @@
 /*   By: fpasquer <fpasquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/28 17:27:29 by fpasquer          #+#    #+#             */
-/*   Updated: 2017/10/12 10:02:58 by fpasquer         ###   ########.fr       */
+/*   Updated: 2017/10/12 10:10:13 by fpasquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ typedef struct				s_func_move
 typedef struct				s_func_weight
 {
 	int						key;
-	int						(*f)(t_grid *, int const, int const, int);
+	int						(*f)(t_grid *, t_coord const, int);
 }							t_func_weight;
 
 typedef struct				s_func_move_show
@@ -164,14 +164,14 @@ void						leave_window(t_mlx_npuzzle **mlx);
 int							get_order_ways(t_grid *grid,
 		t_way_weight ways[MAX_DEEP], int const move, t_coord const c_zero,
 		int weight);
-int							get_weight_top(t_grid *grid, int const y_zero,
-		int const x_zero, int weight);
-int							get_weight_bottom(t_grid *grid, int const y_zero,
-		int const x_zero, int weight);
-int							get_weight_left(t_grid *grid, int const y_zero,
-		int const x_zero, int weight);
-int							get_weight_right(t_grid *grid, int const y_zero,
-		int const x_zero, int weight);
+int							get_weight_top(t_grid *grid, t_coord const c_zero,
+		int weight);
+int							get_weight_bottom(t_grid *grid,
+		t_coord const c_zero, int weight);
+int							get_weight_left(t_grid *grid, t_coord const c_zero,
+		int weight);
+int							get_weight_right(t_grid *grid, t_coord const c_zero,
+		int weight);
 int							get_weight_init(t_grid *grid);
 
 bool						solvable(t_grid *grid);

@@ -6,7 +6,7 @@
 /*   By: fpasquer <fpasquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/28 17:26:06 by fpasquer          #+#    #+#             */
-/*   Updated: 2017/10/12 16:26:38 by fpasquer         ###   ########.fr       */
+/*   Updated: 2017/10/12 16:36:17 by fpasquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ bool						print_flag(unsigned int const flag)
 			"\033[31mNon\033[0m" : "\033[32mOui\033[0m");
 	printf("Tile_out        %s\n", (flag & F_TILE_OUT) == 0 ?
 			"\033[31mNon\033[0m" : "\033[32mOui\033[0m");
-
 	return (true);
 }
 

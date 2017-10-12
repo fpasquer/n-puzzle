@@ -6,7 +6,7 @@
 /*   By: fpasquer <fpasquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/11 08:57:47 by fpasquer          #+#    #+#             */
-/*   Updated: 2017/10/12 16:24:43 by fpasquer         ###   ########.fr       */
+/*   Updated: 2017/10/12 16:37:42 by fpasquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ static int					general_weight(t_grid *grid, int const flag,
 
 	if ((ret = 0) == 0 && grid->flag == 0)
 		return (rand() + flag);
-	if (get_coord_value(grid->grid[c_new.y][c_new.x], grid->x_y, &c.y, &c.x) <= 0)
+	if (get_coord_value(grid->grid[c_new.y][c_new.x], grid->x_y, &c.y, &c.x)
+			<= 0)
 		return (INT_MIN);
 	ret1 = (c.y > c_zero.y) ? c.y - c_zero.y : c_zero.y - c.y;
 	ret2 = (c.x > c_zero.x) ? c.x - c_zero.x : c_zero.x - c.x;

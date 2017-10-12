@@ -6,7 +6,7 @@
 /*   By: fpasquer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 15:34:58 by fpasquer          #+#    #+#             */
-/*   Updated: 2017/10/12 16:21:23 by fpasquer         ###   ########.fr       */
+/*   Updated: 2017/10/12 16:37:48 by fpasquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,3 @@ bool						linear_conflict(t_grid *grid, int const y,
 	}
 	return (true);
 }
-

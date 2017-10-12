@@ -6,7 +6,7 @@
 /*   By: fpasquer <fpasquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/28 17:27:29 by fpasquer          #+#    #+#             */
-/*   Updated: 2017/10/12 10:29:16 by fpasquer         ###   ########.fr       */
+/*   Updated: 2017/10/12 10:41:59 by fpasquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,8 +132,8 @@ bool						del_grid(t_grid **grid);
 void						solve_npuzzle(t_grid *grid, int loop,
 		t_coord const c_zero, int const move, int right_coord, int weight);
 bool						get_coord_zero(t_grid *grid, t_coord *coord);
-int							get_move_possible(t_grid *grid, int const y_zero,
-		int const x_zero);
+int							get_move_possible(t_grid *grid,
+		t_coord const new_c);
 int							is_done(t_grid *grid);
 
 int							move_top(t_grid *grid, int loop,

@@ -6,7 +6,7 @@
 /*   By: fpasquer <fpasquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/29 10:51:25 by fpasquer          #+#    #+#             */
-/*   Updated: 2017/10/10 19:32:53 by fpasquer         ###   ########.fr       */
+/*   Updated: 2017/10/12 10:46:26 by fpasquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,20 +55,19 @@ bool						get_coord_zero(t_grid *grid, t_coord *coord)
 	return (false);
 }
 
-int							get_move_possible(t_grid *grid, int const y_zero,
-	int const x_zero)
+int							get_move_possible(t_grid *grid, t_coord const new)
 {
 	int						move;
 
 	move = FLAG_NONE;
-	if (y_zero > 0 && !(y_zero - 1 == grid->prev.y && x_zero == grid->prev.x))
+	if (new.y > 0 && !(new.y - 1 == grid->prev.y && new.x == grid->prev.x))
 		move = (move | FLAG_TOP);
-	if (y_zero + 1 < grid->x_y && !(y_zero + 1 == grid->prev.y && x_zero ==
+	if (new.y + 1 < grid->x_y && !(new.y + 1 == grid->prev.y && new.x ==
 			grid->prev.x))
 		move = (move | FLAG_BOTTOM);
-	if (x_zero > 0 && !(y_zero == grid->prev.y && x_zero - 1 == grid->prev.x))
+	if (new.x > 0 && !(new.y == grid->prev.y && new.x - 1 == grid->prev.x))
 		move = (move | FLAG_LEFT);
-	if (x_zero + 1 < grid->x_y && !(y_zero == grid->prev.y && x_zero + 1 ==
+	if (new.x + 1 < grid->x_y && !(new.y == grid->prev.y && new.x + 1 ==
 			grid->prev.x))
 		move = (move | FLAG_RIGHT);
 	return (move);

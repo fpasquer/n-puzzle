@@ -6,7 +6,7 @@
 /*   By: fpasquer <fpasquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/28 17:27:29 by fpasquer          #+#    #+#             */
-/*   Updated: 2017/10/12 08:41:09 by fpasquer         ###   ########.fr       */
+/*   Updated: 2017/10/12 09:28:14 by fpasquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ typedef struct				s_mlx_npuzzle
 typedef struct				s_func_move
 {
 	int						key;
-	int						(*f)(t_grid *, int, int const, int const, int const,
+	int						(*f)(t_grid *, int, t_coord const, int const,
 			int, int);
 }							t_func_move;
 
@@ -130,23 +130,22 @@ bool						print_grid(t_grid *grid, int const deep,
 		unsigned int move);
 bool						del_grid(t_grid **grid);
 void						solve_npuzzle(t_grid *grid, int loop,
-		int const x_zero, int const y_zero, int const move, int right_coord,
-		int weight);
+		t_coord const c_zero, int const move, int right_coord, int weight);
 bool						get_coord_zero(t_grid *grid, t_coord *coord);
 int							get_move_possible(t_grid *grid, int const y_zero,
 		int const x_zero);
 int							is_done(t_grid *grid);
 
 int							move_top(t_grid *grid, int loop,
-		int const y_zero, int const x_zero, int const move, int right_coord,
+		t_coord const c_zero, int const move, int right_coord,
 		int weight);
 int							move_bottom(t_grid *grid, int loop,
-		int const y_zero, int const x_zero, int const move, int right_coord,
+		t_coord const c_zero, int const move, int right_coord,
 		int weight);
-int							move_left(t_grid *left, int loop, int const y_zero,
-		int const x_zero, int const move, int right_coord, int weight);
+int							move_left(t_grid *left, int loop,
+		t_coord const c_zero, int const move, int right_coord, int weight);
 int							move_right(t_grid *right, int loop,
-		int const y_zero, int const x_zero, int const move, int right_coord,
+		t_coord const c_zero, int const move, int right_coord,
 		int weight);
 
 int							show_move_top(t_mlx_npuzzle **mlx);

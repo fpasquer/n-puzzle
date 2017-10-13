@@ -6,7 +6,7 @@
 /*   By: fpasquer <fpasquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/29 11:01:24 by fpasquer          #+#    #+#             */
-/*   Updated: 2017/10/13 11:09:31 by fpasquer         ###   ########.fr       */
+/*   Updated: 2017/10/13 11:30:59 by fpasquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static t_func_move			g_moves[] =
 	{FLAG_NONE, NULL, "\n"}
 };
 
-void						solve_npuzzle(t_grid *grid, int loop,
+void						solve_npuzzle_dfs(t_grid *grid, int loop,
 		t_coord const c_zero, int const move, int right_coord, int weight)
 {
 	static long long int	iteration = 0;

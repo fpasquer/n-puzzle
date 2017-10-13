@@ -6,7 +6,7 @@
 /*   By: fpasquer <fpasquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/29 11:27:41 by fpasquer          #+#    #+#             */
-/*   Updated: 2017/10/12 15:38:41 by fpasquer         ###   ########.fr       */
+/*   Updated: 2017/10/13 11:32:24 by fpasquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int					general_move(t_grid *grid, t_coord const c_zero,
 	grid->prev.y = c_zero.y;
 	grid->grid[c_zero.y][c_zero.x] = grid->grid[new_c.y][new_c.x];
 	grid->grid[new_c.y][new_c.x] = EMPTY;
-	solve_npuzzle(grid, loop + 1, new_c,
+	solve_npuzzle_dfs(grid, loop + 1, new_c,
 			get_move_possible(grid, new_c), right_coord, weight);
 	grid->prev.x = mem_prev.x;
 	grid->prev.y = mem_prev.y;

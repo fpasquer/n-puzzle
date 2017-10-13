@@ -6,7 +6,7 @@
 /*   By: fpasquer <fpasquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/28 17:27:29 by fpasquer          #+#    #+#             */
-/*   Updated: 2017/10/13 09:39:19 by fpasquer         ###   ########.fr       */
+/*   Updated: 2017/10/13 11:31:43 by fpasquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ t_grid						*get_grid(char **file, int const x_y,
 bool						print_grid(t_grid *grid, int const deep,
 		unsigned int move);
 bool						del_grid(t_grid **grid);
-void						solve_npuzzle(t_grid *grid, int loop,
+void						solve_npuzzle_dfs(t_grid *grid, int loop,
 		t_coord const c_zero, int const move, int right_coord, int weight);
 bool						get_coord_zero(t_grid *grid, t_coord *coord);
 int							get_move_possible(t_grid *grid,

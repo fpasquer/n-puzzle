@@ -6,7 +6,7 @@
 /*   By: fpasquer <fpasquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/28 17:26:06 by fpasquer          #+#    #+#             */
-/*   Updated: 2017/10/13 11:02:20 by fpasquer         ###   ########.fr       */
+/*   Updated: 2017/10/13 11:31:16 by fpasquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void						start_loop(t_grid *grid, t_coord coord_zero,
 	start = clock();
 	while (grid->max_deep < MAX_DEEP && grid->found == false)
 	{
-		solve_npuzzle(grid, 0, coord_zero,
+		solve_npuzzle_dfs(grid, 0, coord_zero,
 				get_move_possible(grid, coord_zero),
 				right_coord, weight);
 		grid->max_deep++;

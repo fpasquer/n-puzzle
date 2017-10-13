@@ -6,7 +6,7 @@
 /*   By: fpasquer <fpasquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/10 09:10:59 by fpasquer          #+#    #+#             */
-/*   Updated: 2017/10/12 12:46:04 by fpasquer         ###   ########.fr       */
+/*   Updated: 2017/10/13 09:12:24 by fpasquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static bool					soluble(int nc, int nl, int *jeu)
 			;
 		n--;
 	}
-	return (1 & n_permut);
+	return (n_permut % 2 == nc % 2 ? true : false);
 }
 
 bool						solvable(t_grid *grid)

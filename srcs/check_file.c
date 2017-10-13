@@ -6,7 +6,7 @@
 /*   By: fpasquer <fpasquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/11 10:50:30 by fpasquer          #+#    #+#             */
-/*   Updated: 2017/10/13 08:13:25 by fpasquer         ###   ########.fr       */
+/*   Updated: 2017/10/13 09:12:59 by fpasquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ static int					loop_check_file(char **file, int y, int num)
 		coord.y++;
 		skip_comment(file, &coord.y);
 	}
-	return (z > num ? false : ret);
+	return (z != num ? false : ret);
 }
 
 int							check_file(char **file)

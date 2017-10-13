@@ -6,7 +6,7 @@
 /*   By: fpasquer <fpasquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/02 18:13:02 by fpasquer          #+#    #+#             */
-/*   Updated: 2017/10/12 16:17:54 by fpasquer         ###   ########.fr       */
+/*   Updated: 2017/10/13 11:03:06 by fpasquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,17 +42,17 @@ static int					in_loop_get_coord_value(t_coord coord_dest[],
 	if (x_y == 3)
 	{
 		coord_dest[g_grid_3x3[**y][**x]].y = (**y);
-		coord_dest[g_grid_3x3[**y][**x]].y = (**x);
+		coord_dest[g_grid_3x3[**y][**x]].x = (**x);
 	}
 	else if (x_y == 4)
 	{
-		coord_dest[g_grid_3x3[**y][**x]].y = (**y);
-		coord_dest[g_grid_3x3[**y][**x]].y = (**x);
+		coord_dest[g_grid_4x4[**y][**x]].y = (**y);
+		coord_dest[g_grid_4x4[**y][**x]].x = (**x);
 	}
 	else if (x_y == 5)
 	{
-		coord_dest[g_grid_3x3[**y][**x]].y = (**y);
-		coord_dest[g_grid_3x3[**y][**x]].y = (**x);
+		coord_dest[g_grid_5x5[**y][**x]].y = (**y);
+		coord_dest[g_grid_5x5[**y][**x]].x = (**x);
 	}
 	(**x)++;
 	return (true);
@@ -64,7 +64,8 @@ int							get_coord_value(int const value, int const x_y,
 	static t_coord			coord_dest[SIZE_FILE_MAX * SIZE_FILE_MAX];
 	static int				loop = 0;
 
-	if (y == NULL || x == NULL || value >= SIZE_FILE_MAX * SIZE_FILE_MAX)
+	if (y == NULL || x == NULL || value >= SIZE_FILE_MAX * SIZE_FILE_MAX ||
+			value < 0)
 		return (-1);
 	if (loop == 0)
 	{

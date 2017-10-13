@@ -6,7 +6,7 @@
 /*   By: fpasquer <fpasquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/02 14:19:49 by fpasquer          #+#    #+#             */
-/*   Updated: 2017/10/12 10:10:25 by fpasquer         ###   ########.fr       */
+/*   Updated: 2017/10/13 09:53:02 by fpasquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,12 @@ int							get_order_ways(t_grid *grid,
 	int						i;
 	int const				order_move[] =
 	{FLAG_TOP, FLAG_BOTTOM, FLAG_LEFT, FLAG_RIGHT};
+																				char const				str[4][20] = {
+																					"Haut",
+																					"Bas",
+																					"Gauche",
+																					"Droit"
+																				};
 
 	if (grid == NULL || ways == NULL)
 		return (-1);
@@ -67,5 +73,8 @@ int							get_order_ways(t_grid *grid,
 		i++;
 	}
 	qsort(ways, MAX_WAY, sizeof(t_way_weight), compar_weight_ways);
+																				printf("weight = %d\n", weight);
+																				for (int k = 0; k < MAX_WAY;k++)
+																					printf("ways[%6s].weight = %4d\n", str[k], ways[k].weight);
 	return (true);
 }

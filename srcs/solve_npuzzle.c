@@ -6,7 +6,7 @@
 /*   By: fpasquer <fpasquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/29 11:01:24 by fpasquer          #+#    #+#             */
-/*   Updated: 2017/10/12 10:05:15 by fpasquer         ###   ########.fr       */
+/*   Updated: 2017/10/13 09:47:33 by fpasquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 static t_func_move			g_moves[] =
 {
-	{FLAG_TOP, move_top},
-	{FLAG_BOTTOM, move_bottom},
-	{FLAG_LEFT, move_left},
-	{FLAG_RIGHT, move_right},
-	{FLAG_NONE, NULL}
+	{FLAG_TOP, move_top, "Haut"},
+	{FLAG_BOTTOM, move_bottom, "Bas"},
+	{FLAG_LEFT, move_left, "Gauche"},
+	{FLAG_RIGHT, move_right, "Right"},
+	{FLAG_NONE, NULL, "\n"}
 };
 
 void						solve_npuzzle(t_grid *grid, int loop,
@@ -28,7 +28,15 @@ void						solve_npuzzle(t_grid *grid, int loop,
 	unsigned int			i;
 	t_way_weight			ways[MAX_WAY];
 
-	if (grid == NULL || loop > grid->max_deep || loop >= MAX_DEEP)
+																				if (iteration == 5)
+																					exit(10);
+																				for (int k = 0; k < grid->x_y; k++)
+																				{
+																					for (int l = 0; l < grid->x_y; l++)
+																						printf("%3d", grid->grid[k][l]);
+																					printf("\n");
+																				}
+	if (grid == NULL || loop > grid->max_deep)
 		return ;
 	if (right_coord == grid->end)
 	{

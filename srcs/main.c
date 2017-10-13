@@ -6,7 +6,7 @@
 /*   By: fpasquer <fpasquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/28 17:26:06 by fpasquer          #+#    #+#             */
-/*   Updated: 2017/10/12 16:36:17 by fpasquer         ###   ########.fr       */
+/*   Updated: 2017/10/13 11:02:20 by fpasquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 bool						print_flag(unsigned int const flag)
 {
+	printf("Random          %s\n", flag != 0 ? "\033[31mNon\033[0m" :
+			"\033[32mOui\033[0m");
 	printf("Manhattan       %s\n", (flag & F_MANHATTAN) == 0 ?
 			"\033[31mNon\033[0m" : "\033[32mOui\033[0m");
 	printf("Linear conflict %s\n", (flag & F_LINEAR_C) == 0 ?
@@ -34,7 +36,6 @@ void						start_loop(t_grid *grid, t_coord coord_zero,
 
 	if (grid == NULL || grid->grid == NULL || file == NULL || fd <= 1)
 		return ;
-	get_coord_value(0, grid->x_y, &right_coord, &weight);
 	right_coord = is_done(grid);
 	weight = grid->max_deep;
 	printf("weight manhattan + linear_conflict = %d\n", weight);
@@ -49,6 +50,7 @@ void						start_loop(t_grid *grid, t_coord coord_zero,
 	printf("Time = %f\nMemory = %zu octets\n", (double)(clock() - start) /
 			CLOCKS_PER_SEC, sizeof(*grid) * grid->max_deep);
 	show_way(grid, &file, fd, coord_zero);
+	exit(EXIT_SUCCESS);
 }
 
 static void					main_next(int const fd, int const flags)
@@ -78,6 +80,7 @@ int							main(int argc, char **argv)
 
 	flags = 0;
 	srand(getpid());
+
 	if (argc <= 1 && generate_grid() == false)
 	{
 		ft_putstr_fd("Error file\n", STDERR_FILENO);

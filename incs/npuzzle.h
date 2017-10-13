@@ -6,7 +6,7 @@
 /*   By: fpasquer <fpasquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/28 17:27:29 by fpasquer          #+#    #+#             */
-/*   Updated: 2017/10/13 08:13:49 by fpasquer         ###   ########.fr       */
+/*   Updated: 2017/10/13 09:39:19 by fpasquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # ifdef DEBUG
 #  define MAX_DEEP 5
 # else
-#  define MAX_DEEP 50
+#  define MAX_DEEP 110
 # endif
 
 # define MAX_WAY 4
@@ -106,6 +106,7 @@ typedef struct				s_func_move
 	int						key;
 	int						(*f)(t_grid *, int, t_coord const, int const,
 			int, int);
+	char					*str;
 }							t_func_move;
 
 typedef struct				s_func_weight

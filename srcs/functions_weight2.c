@@ -6,7 +6,7 @@
 /*   By: fpasquer <fpasquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/11 08:57:47 by fpasquer          #+#    #+#             */
-/*   Updated: 2017/10/12 16:37:42 by fpasquer         ###   ########.fr       */
+/*   Updated: 2017/10/13 09:54:51 by fpasquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int					general_weight(t_grid *grid, int const flag,
 	ret2 = (c.x > c_zero.x) ? c.x - c_zero.x : c_zero.x - c.x;
 	if ((grid->flag & F_MANHATTAN) != 0)
 	{
-		ret = weight + ret1 + ret2;
+		ret = weight + ret1 + ret2 + 10;
 		ret -= (c.y > c_new.y) ? c.y - c_new.y : c_new.y - c.y;
 		ret -= (c.x > c_new.x) ? c.x - c_new.x : c_new.x - c.x;
 	}

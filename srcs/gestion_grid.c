@@ -6,7 +6,7 @@
 /*   By: fpasquer <fpasquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/29 08:37:18 by fpasquer          #+#    #+#             */
-/*   Updated: 2017/10/12 10:55:28 by fpasquer         ###   ########.fr       */
+/*   Updated: 2017/10/13 08:17:44 by fpasquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,10 @@ t_grid						*get_grid(char **file, int const x_y,
 		if ((grid->grid[y++] = ft_memalloc(sizeof(int) * x_y)) == NULL)
 			return (NULL);
 	grid->x_y = x_y;
-	return (start_get_grid(grid, flags, file));
+	if (start_get_grid(grid, flags, file) == NULL ||
+			check_grid_doublon(grid) == NULL)
+		return (NULL);
+	return (grid);
 }
 
 bool						del_grid(t_grid **grid)

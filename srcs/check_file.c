@@ -6,7 +6,7 @@
 /*   By: fpasquer <fpasquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/11 10:50:30 by fpasquer          #+#    #+#             */
-/*   Updated: 2017/10/12 15:22:04 by fpasquer         ###   ########.fr       */
+/*   Updated: 2017/10/13 08:13:25 by fpasquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ static int					loop_check_file(char **file, int y, int num)
 	int						nb_number;
 	int						ret;
 	int						max_f_num;
+	int						z;
 	t_coord					coord;
 
 	if (file == NULL || *file == NULL || y < 0)
@@ -63,6 +64,7 @@ static int					loop_check_file(char **file, int y, int num)
 	ret = num;
 	max_f_num = num * num - 1;
 	coord.y = y;
+	z = 0;
 	while (file[coord.y] != NULL)
 	{
 		nb_number = 0;
@@ -71,10 +73,11 @@ static int					loop_check_file(char **file, int y, int num)
 			return (false);
 		if (nb_number != ret)
 			return (false);
+		z++;
 		coord.y++;
 		skip_comment(file, &coord.y);
 	}
-	return (ret);
+	return (z > num ? false : ret);
 }
 
 int							check_file(char **file)

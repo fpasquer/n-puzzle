@@ -6,7 +6,7 @@
 /*   By: fpasquer <fpasquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/28 17:27:29 by fpasquer          #+#    #+#             */
-/*   Updated: 2017/10/12 16:21:21 by fpasquer         ###   ########.fr       */
+/*   Updated: 2017/10/13 08:13:49 by fpasquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,4 +186,6 @@ int							new_right_coord(t_grid *grid, t_coord const c_zero,
 		t_coord const new_c, int right_coord);
 int							tile_out_r_c(t_grid *grid, t_coord const c_new,
 		t_coord const coord, int *ret);
+t_grid						*check_grid_doublon(t_grid *grid);
+
 #endif
